@@ -30,7 +30,11 @@
                 </a-mixin>
             </a-assets>
 
-            <a-entity environment="skyType: color; skyColor: #f2f2f2; grid: 1x1; ground: flat; groundTexture: none; groundColor: #8704e5; groundColor2: #dbaaff; gridColor: white"></a-entity>
+            <a-entity environment="skyType: color; skyColor: #f2f2f2; grid: 1x1; ground: flat; groundTexture: none; groundColor: #1c1c1c; groundColor2: #dbaaff; gridColor: #77ffad; fog: 0.9">
+              <a-animation attribute="environment.gridColor"
+                           to="#1c1c1c"
+                           dur="3000"></a-animation>
+            </a-entity>
             
             <!-- It works great on Oculus Browser -->
             <!-- Samsung Internet VR v5.4.10.4 reads hands configution in reverse -->
