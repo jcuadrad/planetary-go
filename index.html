@@ -30,7 +30,12 @@
                 </a-mixin>
             </a-assets>
 
-            <a-entity environment="skyType: color; skyColor: #f2f2f2; grid: 1x1; ground: flat; groundTexture: none; groundColor: #1c1c1c; groundColor2: #dbaaff; gridColor: #77ffad; fog: 0.9">
+            <a-entity environment="skyType: color; skyColor: #f2f2f2; 
+                                   grid: 1x1; gridColor: #77ffad; 
+                                   ground: flat; groundTexture: none; groundColor: #1c1c1c;
+                                   fog: 0.9; 
+                                   dressing: cubes;
+                                   dressingScale: 15">
               <a-animation attribute="environment.gridColor"
                            from="#77ffad"
                            to="#1c1c1c"
@@ -44,26 +49,26 @@
             <a-entity progressive-controls></a-entity>
             
             <!-- Screen -->
-            <a-box id="screen" color="#212121" position="0 2.75 -9" scale="8 4 0.1" hoverable
+            <a-box id="screen" color="#212121" position="0 3.75 -9" scale="8 4 0.1" hoverable
                    event-set__rescol="_event: click; color: #212121">
             </a-box>
             
             <!-- Left Button -->
-            <a-box color="#212121" position="-2.25 0 -9" scale="2 1 0.1" hoverable
+            <a-box color="#212121" position="-2.25 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
                    event-set__enter="_event: hover-start; color: #AA0000"
                    event-set__leave="_event: hover-end; color: #212121"
                    event-set__tarcol="_event: click; _target: #screen; color: #AA0000">
             </a-box>
             <!-- Center Button -->
-            <a-box color="#212121" position="0 0 -9" scale="2 1 0.1" hoverable
+            <a-box color="#212121" position="0 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
                    event-set__enter="_event: hover-start; color: #FFAA00"
                    event-set__leave="_event: hover-end; color: #212121"
                    event-set__tarcol="_event: click; _target: #screen; color: #FFAA00">
             </a-box>
             <!-- Right Button -->
-            <a-box color="#212121" position="2.25 0 -9" scale="2 1 0.1" hoverable
+            <a-box color="#212121" position="2.25 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
                    event-set__enter="_event: hover-start; color: #00AAFF"
                    event-set__leave="_event: hover-end; color: #212121"
