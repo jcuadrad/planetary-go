@@ -1,125 +1,71 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <title>The Lights - Test</title>
-    <meta name="description" content="Basic Scene - A-Frame">
-    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
-    <script src="https://cdn.rawgit.com/matthewbryancurtis/aframe-star-system-component/db4f1030/index.js"></script>
-    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v3.0.0/dist/aframe-physics-system.min.js"></script>
-    <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
-    <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
-    <script src="glsl-shader.js"></script>
-  </head>
-  <body>
-    <audio src="https://cdn.glitch.com/a81931b7-7aa6-4c69-9006-8d0d6e3e70d1%2F100_Percloop_SP_04.wav?1518406413213" autoplay loop></audio>
-    <a-scene>
-      <a-assets>
-        <img id="groundTexture" src="https://cdn.glitch.com/a81931b7-7aa6-4c69-9006-8d0d6e3e70d1%2FTexturesCom_CobblestoneFloor4_1024_albedo.jpg?1518126454193">
-        <img id="groundNormalMap" src="https://cdn.glitch.com/a81931b7-7aa6-4c69-9006-8d0d6e3e70d1%2FTexturesCom_CobblestoneFloor4_1024_normal.jpg?1518126454456">
-        <img id="groundAmbientOcclusion" src="https://cdn.glitch.com/a81931b7-7aa6-4c69-9006-8d0d6e3e70d1%2FTexturesCom_CobblestoneFloor4_1024_ao.jpg?1518126447374">
-        <img id="skyTexture" src="https://cdn.aframe.io/a-painter/images/sky.jpg">
-        <img id="wallTexture" src="https://cdn.glitch.com/a81931b7-7aa6-4c69-9006-8d0d6e3e70d1%2F11723-v5.jpg?1518131670947">
-        <img id="wallNormalMap" src="https://cdn.glitch.com/a81931b7-7aa6-4c69-9006-8d0d6e3e70d1%2F11723-normal.jpg?1518131671630">
-        <img id="wallAmbientOcclusion" src="https://cdn.glitch.com/a81931b7-7aa6-4c69-9006-8d0d6e3e70d1%2F11723-ambientocclusion.jpg?1518131670353">
-        
-        <a-mixin id="progressivecontrolsgazedefault" position="0 0 -0.5" raycaster="objects: a-sphere"
-                geometry="primitive: ring;radiusOuter: 0.008; radiusInner: 0.005; segmentsTheta: 32"
-                cursor="fuse: true; fuseTimeout: 500" material="color: #000; shader: flat"
-                super-hands="colliderEvent:raycaster-intersection;
-                             colliderEventProperty:els;
-                             colliderEndEvent:raycaster-intersection-cleared;
-                             colliderEndEventProperty:el;">
-        </a-mixin>
-        <a-mixin id="progressivecontrolspointdefault" line="color: #FF00FF" raycaster="showLine:true; objects: a-sphere"
-                 super-hands="colliderEvent:raycaster-intersection;
-                              colliderEventProperty:els;
-                              colliderEndEvent:raycaster-intersection-cleared;
-                              colliderEndEventProperty:el;">
-        </a-mixin>
-        <a-mixin id="progressivecontrolstouchdefault" raycaster="showLine:true; objects: a-sphere" line="color: #FF00FF" super-hands sphere-collider>
-        </a-mixin>
-      </a-assets>
-      
-      <a-entity progressive-controls></a-entity>
-      
-      <!-- Room Walls--->
-      <a-plane id="front-wall" position="0 4.2 -12.50" scale="25 8.3 0.5" shadow="receive: true; cast: false;" 
-               material="shader: test"></a-plane>
-      <a-plane id="left-wall" position="-12.5 4.2 0" scale="25 8.3 0.5" rotation="0 90 0" material="shader: test"></a-plane>
-      <a-plane id="back-wall" position="0 4.2 12.50" scale="25 8.3 0.5" rotation="0 180 0" color="#4286f4" material="shader: test"></a-plane>
-      <a-plane id="right-wall" position="12.5 4.2 0" scale="25 8.3 0.5" rotation="0 270 0" material="shader: test"></a-plane>
-      
-      <!-- Spheres --->
-      <a-sphere radius="1.7" position="-8 1.68 -8" color="#66f9ff" emissive="#66f9ff" shader="standard" shadow="cast: true;"></a-sphere>
-      <a-sphere radius="1.7" position="8 1.68 -8" color="#66f9ff" emissive="#66f9ff" shader="standard" shadow="cast: true"></a-sphere>
-      
-      <a-sphere radius="1.7" position="0 1.68 -6" color="#66f9ff" emissive="#66f9ff" shader="standard" shadow="cast: true" hoverable
-                event-set__enter="_event: hover-start; color: #000000"
-                event-set__leave="_event: hover-end; color: #66f9ff">
-      </a-sphere>
-      <a-sphere radius="1.7" position="0 1.68 6" color="#66f9ff" emissive="#66f9ff" shader="standard" shadow="cast: true"></a-sphere>
-      
-      <a-sphere radius="1.7" position="-8 1.68 8" color="#66f9ff" emissive="#66f9ff" shader="standard" shadow="cast: true"></a-sphere>
-      <a-sphere radius="1.7" position="8 1.68 8" color="#66f9ff" emissive="#66f9ff" shader="standard" shadow="cast: true"></a-sphere>
-      
-      <!-- Sky -->
-      <!-- <a-sky height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"></a-sky> -->
-      <a-sky color="black"></a-sky>
-      <a-entity star-system>
-        <a-animation attribute="rotation"
-                     from="0 0 0"
-                     to="180 0 360"
-                     dur="500000"
-                     easing="linear">
-        </a-animation>
-      </a-entity>
-      
-      
-      <!--Lights -->
-      <a-light type="ambient" color="#445451" intensity="0.5"></a-light>
-      <!-- Moving Light -->
-      <a-entity light="type: directional;
-                       castShadow: true;
-                       intensity: 0.4;
-                       shadowCameraVisible: true;
-                       shadowCameraLeft: -10;
-                       shadowCameraBottom: -10; 
-                       shadowCameraRight: 10; 
-                       shadowCameraTop: 10"
-                position="-12 9 -12">
-        <a-animation attribute="position"
-                     to="12 9 12"
-                     dur="10000"
-                     direction="alternate"
-                     easing="linear"
-                     repeat="indefinite">
-        </a-animation>
-      </a-entity>
-      <a-sphere position="-12 9 -12" shader="standard" radius="0.6" material="emissiveIntensity: 500; emissive: #FFFFFF;">
-        <a-animation attribute="position"
-                     to="12 9 12"
-                     dur="10000"
-                     direction="alternate"
-                     easing="linear"
-                     repeat="indefinite">
-        </a-animation>
-      </a-sphere>
-      
-      <!-- <a-plane material="src: #groundTexture;
-                         normal-map: #groundNormalMap;
-                         normal-texture-repeat: 20 20;
-                         ambient-occlusion-map: #groundAmbientOcclusion;
-                         ambient-occlusion-texture-repeat: 20 20;
-                         roughness: 0.5;" rotation="-90 0 0" height="100" width="100" repeat="20 20" shadow="receive: true;"></a-plane> -->
-      
-      <a-plane material="color: #ff66c9; emissive: #ff66c9" rotation="-90 0 0" height="100" width="100" repeat="20 20" shadow="receive: true;"></a-plane> 
-      
-      <a-text value="Look alive, sunshine!" color="#FFF" position="-1.6 0.2 -3" scale="1.5 1.5 1.5" shadow="cast: true"></a-text>
-      
-      <a-camera>
-        <a-cursor color="#FAFAFA"></a-cursor>
-      </a-camera>
+    <head>
+        <title>Super Hands</title>
+        <script src="https://aframe.io/releases/0.7.1/aframe.min.js"></script>
+        <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
+        <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+    </head>
+    <body>
+        <a-scene>
+            
+            <a-assets>
+                <a-mixin id="progressivecontrolsgazedefault"
+                         position="0 0 -0.5" raycaster="objects: .UIbutton"
+                         cursor="fuse: true; fuseTimeout: 1000"
+                         geometry="primitive: sphere; radius: 0.0025"
+                         material="color: #999; shader: flat"
+                         super-hands="colliderEvent: raycaster-intersection;
+                                      colliderEventProperty: els;
+                                      colliderEndEvent: raycaster-intersection-cleared;
+                                      colliderEndEventProperty: el">
+                </a-mixin>
+                <a-mixin id="progressivecontrolspointdefault"
+                         line="color: #FF00FF" raycaster="showLine: true; objects: .UIbutton"
+                         super-hands="colliderEvent: raycaster-intersection;
+                                      colliderEventProperty: els;
+                                      colliderEndEvent: raycaster-intersection-cleared;
+                                      colliderEndEventProperty: el">
+                </a-mixin>
+            </a-assets>
 
-    </a-scene>
-  </body>
+            <a-entity environment></a-entity>
+            
+            <!-- It works great on Oculus Browser -->
+            <!-- Samsung Internet VR v5.4.10.4 reads hands configution in reverse -->
+            <a-entity progressive-controls></a-entity>
+            
+            <!-- Screen -->
+            <a-box id="screen" color="#212121" position="0 2.75 -9" scale="8 4 0.1" hoverable
+                   event-set__rescol="_event: click; color: #212121">
+            </a-box>
+            
+            <!-- Left Button -->
+            <a-box color="#212121" position="-2.25 0 -9" scale="2 1 0.1" hoverable
+                   class="UIbutton"
+                   event-set__enter="_event: hover-start; color: #AA0000"
+                   event-set__leave="_event: hover-end; color: #212121"
+                   event-set__tarcol="_event: click; _target: #screen; color: #AA0000">
+            </a-box>
+            <!-- Center Button -->
+            <a-box color="#212121" position="0 0 -9" scale="2 1 0.1" hoverable
+                   class="UIbutton"
+                   event-set__enter="_event: hover-start; color: #FFAA00"
+                   event-set__leave="_event: hover-end; color: #212121"
+                   event-set__tarcol="_event: click; _target: #screen; color: #FFAA00">
+            </a-box>
+            <!-- Right Button -->
+            <a-box color="#212121" position="2.25 0 -9" scale="2 1 0.1" hoverable
+                   class="UIbutton"
+                   event-set__enter="_event: hover-start; color: #00AAFF"
+                   event-set__leave="_event: hover-end; color: #212121"
+                   event-set__tarcol="_event: click; _target: #screen; color: #00AAFF">
+            </a-box>
+            
+            <!-- Sky -->
+            <a-sky></a-sky>
+            
+        </a-scene>
+    </body>
 </html>

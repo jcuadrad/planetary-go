@@ -1,12 +1,7 @@
-# The Lights
+# Super Hands
 
-### Week One
+## Week Two
 
-My first experiment putting together an [A-Frame](https://aframe.io) scene, a web framework for building virtual reality experiences.
+The purpose of this week will be practicing implementing actual controlers into the scene.
 
-The purpuse is to practice with Lights and Shadows, and it's interactions with objects and materials.
-
-## NEXT STEPS
-
-- Continue Moving Light animation.
-- Event set: On click, bounce animations for a-sphere + color change.
+I'll implement the Super Hands component to work and inereact with objects in the Oculus Rift.
