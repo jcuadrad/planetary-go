@@ -32,8 +32,11 @@
 
             <a-entity environment="skyType: color; skyColor: #f2f2f2; grid: 1x1; ground: flat; groundTexture: none; groundColor: #1c1c1c; groundColor2: #dbaaff; gridColor: #77ffad; fog: 0.9">
               <a-animation attribute="environment.gridColor"
+                           from="#77ffad"
                            to="#1c1c1c"
-                           dur="3000"></a-animation>
+                           dur="3000"
+                           repeat="indefinite"
+                           direction="alternate"></a-animation>
             </a-entity>
             
             <!-- It works great on Oculus Browser -->
