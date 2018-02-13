@@ -28,20 +28,18 @@
                                       colliderEndEvent: raycaster-intersection-cleared;
                                       colliderEndEventProperty: el">
                 </a-mixin>
-                 <a-mixin id="progressivecontrolstouchdefault" super-hands sphere-collider>
+                 <a-mixin id="progressivecontrolstouchdefault" line="color: #FF00FF" raycaster="showLine: true; objects: .UIbutton"
+                          super-hands="colliderEvent: raycaster-intersection;
+                                      colliderEventProperty: els;
+                                      colliderEndEvent: raycaster-intersection-cleared;
+                                      colliderEndEventProperty: el" sphere-collider>
                  </a-mixin>
             </a-assets>
 
             <a-entity environment="skyType: color; skyColor: #f2f2f2; 
                                    grid: 1x1; gridColor: #77ffad; 
                                    ground: flat; groundTexture: none; groundColor: #1c1c1c;
-                                   fog: 0.9;">
-              <a-animation attribute="environment.gridColor"
-                           from="#77ffad"
-                           to="#1c1c1c"
-                           dur="3000"
-                           repeat="indefinite"
-                           direction="alternate"></a-animation>
+                                   fog: 0.4;">
             </a-entity>
             
             <!-- It works great on Oculus Browser -->
