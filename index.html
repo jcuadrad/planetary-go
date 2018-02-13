@@ -8,11 +8,11 @@
         <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
     </head>
     <body>
-        <a-scene timeout="200000">
+        <a-scene timeout="5000">
             
             <a-assets>
-                <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FWelcome_To_The_Black_Parade_(Vocals_Only)_My_Chemical_Romance.mp3?1518499785512" preload="auto"></audio>
-                <audio id="drums" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FMy_Chemical_Romance_-_Welcome_To_The_Black_Parade_(Drums_Only).mp3?1518499785086" preload="auto"></audio>
+                <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FWelcome_To_The_Black_Parade_(Vocals_Only)_My_Chemical_Romance.mp3?1518499785512" autoplay crossorigin preload="auto"></audio>
+                <audio id="drums" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FMy_Chemical_Romance_-_Welcome_To_The_Black_Parade_(Drums_Only).mp3?1518499785086" autoplay crossorigin preload="auto"></audio>
                 <a-mixin id="progressivecontrolsgazedefault"
                          position="0 0 -0.5" raycaster="objects: .UIbutton"
                          cursor="fuse: true; fuseTimeout: 1000"
