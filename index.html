@@ -8,7 +8,7 @@
         <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
     </head>
     <body>
-        <a-scene timeout="5000">
+        <a-scene timeout="9000">
             
             <a-assets>
                 <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897" crossorigin preload="auto"></audio>
@@ -47,35 +47,37 @@
             <!-- It works great on Oculus Browser -->
             <!-- Samsung Internet VR v5.4.10.4 reads hands configution in reverse -->
             <a-entity progressive-controls></a-entity>
+          
+            <a-sphere position="0 1 -4" sound="src: #backing;"></a-sphere>
             
-            <!-- Screen -->
+            <!-- Screen 
             <a-box id="screen" color="#212121" position="0 3.75 -5" scale="8 4 0.1" hoverable
-                   sound="src: #vocals; autoplay: true;"
+                   sound="src: #vocals; on: click;"
                    event-set__rescol="_event: click; color: #212121">
             </a-box>
             
-            <!-- Left Button -->
+            <!-- Left Button --
             <a-box color="#212121" position="-2.25 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
-                   sound="src: #backing; autoplay: true;"
+                   sound="src: #backing; on: click;"
                    event-set__enter="_event: hover-start; color: #AA0000"
                    event-set__leave="_event: hover-end; color: #212121"
                    event-set__tarcol="_event: click; _target: #screen; color: #AA0000">
             </a-box>
-            <!-- Center Button -->
+            <!-- Center Button --
             <a-box color="#212121" position="0 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
                    event-set__enter="_event: hover-start; color: #FFAA00"
                    event-set__leave="_event: hover-end; color: #212121"
                    event-set__tarcol="_event: click; _target: #screen; color: #FFAA00">
             </a-box>
-            <!-- Right Button -->
+            <!-- Right Button --
             <a-box color="#212121" position="2.25 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
                    event-set__enter="_event: hover-start; color: #00AAFF"
                    event-set__leave="_event: hover-end; color: #212121"
                    event-set__tarcol="_event: click; _target: #screen; color: #00AAFF">
-            </a-box>
+            </a-box> -->
             
         </a-scene>
     </body>
