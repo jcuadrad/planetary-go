@@ -1,5 +1,11 @@
 #wait {
+  background-color: black;
   margin: 0;
   height: 100%;
-  widt: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
 }
