@@ -8,30 +8,35 @@ var backing = new Howl({
       }
   });
 
+var vocals = new Howl({
+      src: ['https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897'],
+      preload: true,
+      onload: function() {
+        console.log('Finished!');
+      }
+  });
+
 AFRAME.registerComponent('listen', {
   init: function () {
     var element = this.el;
     
-    element.addEventListener('click', function() {
+    element.addEventListener('mouseenter', function() {
       backing.play();
+      vocals.play();
     });
   }
 });
 
-AFRAME.registerComponent('sound-ready', {
+AFRAME.registerComponent('volume-backing', {
   init: function () {
     var element = this.el;
     
-    if (element.components.sound.loaded) {
-      console.log('Sound is ready bro!');
-    }
-  },
-  
-  update: function () {
-    var element = this.el;
+    element.addEventListener('mouseenter', function() {
+      backing.mute(true);
+    });
     
-    if (element.components.sound.loaded) {
-      console.log('Sound is ready bro!');
-    }
+    element.addEventListener('mouseleave', function() {
+      backing.mute(false);
+    });
   }
 });
