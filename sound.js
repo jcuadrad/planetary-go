@@ -1,4 +1,4 @@
-/* Global AFRAME, THREE*/
+/* global AFRAME, THREE*/
 
 AFRAME.registerComponent('listen', {
   init: function () {
@@ -11,6 +11,12 @@ AFRAME.registerComponent('listen', {
   }
 });
 
-AFRAME.registerComponent('join-sound', {
-  init: function () {}
+AFRAME.registerComponent('sound-ready', {
+  init: function () {
+    var element = this.el;
+    
+    if (element.components.sound.hasLoaded) {
+      console.log('Sound is ready bro!');
+    }
+  }
 });

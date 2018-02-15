@@ -12,8 +12,8 @@
         <a-scene timeout="9000">
             
             <a-assets>
-                <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897" crossorigin preload="auto"></audio>
-                <audio id="backing" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2014%20~%20Backing%20Tracks.mp3?1518505535158" crossorigin preload="auto"></audio>
+                <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897" crossorigin preload></audio>
+                <audio id="backing" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2014%20~%20Backing%20Tracks.mp3?1518505535158" crossorigin preload></audio>
                 <a-mixin id="progressivecontrolsgazedefault"
                          position="0 0 -0.5" raycaster="objects: .UIbutton"
                          cursor="fuse: true; fuseTimeout: 1"
@@ -52,16 +52,16 @@
             <!-- Screen -->
             <a-box id="screen" class="UIbutton" color="#212121" position="0 3.75 -5" scale="8 4 0.1" hoverable
                    sound="src: #vocals; on: click;"
-                   event-set__rescol="_event: click; color: #212121" listen>
+                   event-set__rescol="_event: click; color: #212121" sound-loaded>
             </a-box>
             
             <!-- Left Button -->
             <a-box id="left" color="#212121" position="-2.25 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
-                   sound="src: #backing; on: go;"
+                   sound="src: #backing; on: click;"
                    event-set__enter="_event: hover-start; color: #AA0000"
                    event-set__leave="_event: hover-end; color: #212121"
-                   event-set__tarcol="_event: click; _target: #screen; color: #AA0000">
+                   event-set__tarcol="_event: click; _target: #screen; color: #AA0000" sound-loaded>
             </a-box>
             <!-- Center Button -->
             <a-box color="#212121" position="0 1 -5" scale="2 1 0.1" hoverable
