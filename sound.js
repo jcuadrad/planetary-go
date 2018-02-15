@@ -40,3 +40,17 @@ AFRAME.registerComponent('volume-backing', {
     });
   }
 });
+
+AFRAME.registerComponent('volume-vocals', {
+  init: function () {
+    var element = this.el;
+    
+    element.addEventListener('mouseenter', function() {
+      vocals.mute(true);
+    });
+    
+    element.addEventListener('mouseleave', function() {
+      vocals.mute(false);
+    });
+  }
+});

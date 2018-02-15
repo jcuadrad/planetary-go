@@ -8,9 +8,15 @@
         <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.min.js"></script>
         <script src="sound.js"></script>
+        <link rel="stylesheet" href="/style.css">
     </head>
     <body>
         <a-scene timeout="8000">
+          <div id="wait">
+            <h1>
+              Loading...
+            </h1>
+          </div>
             
             <a-assets>
                 <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897" crossorigin preload="true"></audio>
@@ -58,17 +64,16 @@
             <!-- Left Button -->
             <a-box id="left" color="#212121" position="-2.25 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
-                   sound="src: #backing; on: click;"
                    event-set__enter="_event: hover-start; color: #AA0000"
                    event-set__leave="_event: hover-end; color: #212121"
-                   event-set__tarcol="_event: click; _target: #screen; color: #AA0000">
+                   event-set__tarcol="_event: click; _target: #screen; color: #AA0000" volume-backing>
             </a-box>
             <!-- Center Button -->
             <a-box color="#212121" position="0 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
                    event-set__enter="_event: hover-start; color: #FFAA00"
                    event-set__leave="_event: hover-end; color: #212121"
-                   event-set__tarcol="_event: click; _target: #screen; color: #FFAA00">
+                   event-set__tarcol="_event: click; _target: #screen; color: #FFAA00" volume-vocals>
             </a-box>
             <!-- Right Button -->
             <a-box color="#212121" position="2.25 1 -5" scale="2 1 0.1" hoverable
