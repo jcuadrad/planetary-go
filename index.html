@@ -11,11 +11,11 @@
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
-        <div id="wait">
+        <!-- <div id="wait">
             <h1>
               Loading...
             </h1>
-        </div>
+        </div> -->
         <a-scene timeout="8000">      
             <a-assets>
                 <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897" crossorigin preload="true"></audio>
@@ -65,7 +65,7 @@
                    class="UIbutton"
                    event-set__enter="_event: hover-start; color: #AA0000"
                    event-set__leave="_event: hover-end; color: #212121"
-                   event-set__tarcol="_event: click; _target: #screen; color: #AA0000" volume-backing>
+                   event-set__tarcol="_event: click; _target: #screen; color: #AA0000" volume-backing-track>
             </a-box>
             <!-- Center Button -->
             <a-box color="#212121" position="0 1 -5" scale="2 1 0.1" hoverable
@@ -79,7 +79,15 @@
                    class="UIbutton"
                    event-set__enter="_event: hover-start; color: #00AAFF"
                    event-set__leave="_event: hover-end; color: #212121"
-                   event-set__tarcol="_event: click; _target: #screen; color: #00AAFF">
+                   event-set__tarcol="_event: click; _target: #screen; color: #00AAFF" volume-backing-vocals>
+            </a-box> 
+          
+            <!-- Right Button -->
+            <a-box color="#212121" position="4.50 1 -5" scale="2 1 0.1" hoverable
+                   class="UIbutton"
+                   event-set__enter="_event: hover-start; color: #00AAFF"
+                   event-set__leave="_event: hover-end; color: #212121"
+                   event-set__tarcol="_event: click; _target: #screen; color: #00AAFF" volume-drums>
             </a-box> 
             
         </a-scene>
