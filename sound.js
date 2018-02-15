@@ -15,7 +15,7 @@ AFRAME.registerComponent('sound-ready', {
   init: function () {
     var element = this.el;
     
-    if (element.components.sound.hasLoaded) {
+    if (element.components.sound.loaded) {
       console.log('Sound is ready bro!');
     }
   }
