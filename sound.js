@@ -8,16 +8,13 @@ var backing = new Howl({
       }
   });
 
-AFRAME.registerComponent('wait', {
+AFRAME.registerComponent('listen', {
   init: function () {
     var element = this.el;
     
-    if (backing.state() === 'loaded') {}
-    
-    //element.addEventListener('click', function() {
-     // element.emit('go', {}, true);
-     // console.log('Emitting!')
-   // });
+    element.addEventListener('click', function() {
+      backing.play();
+    });
   }
 });
 
