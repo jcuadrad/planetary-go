@@ -6,6 +6,7 @@
         <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
         <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
         <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+        <script src="sound.js"></script>
     </head>
     <body>
         <a-scene timeout="9000">
@@ -50,14 +51,14 @@
             
             <!-- Screen -->
             <a-box id="screen" class="UIbutton" color="#212121" position="0 3.75 -5" scale="8 4 0.1" hoverable
-                   sound="src: #vocals; on: sound-loaded;"
-                   event-set__rescol="_event: click; color: #212121">
+                   sound="src: #vocals; on: click;"
+                   event-set__rescol="_event: click; color: #212121" listen>
             </a-box>
             
             <!-- Left Button -->
             <a-box id="left" color="#212121" position="-2.25 1 -5" scale="2 1 0.1" hoverable
                    class="UIbutton"
-                   sound="src: #backing; on: sound-loaded;"
+                   sound="src: #backing; on: go;"
                    event-set__enter="_event: hover-start; color: #AA0000"
                    event-set__leave="_event: hover-end; color: #212121"
                    event-set__tarcol="_event: click; _target: #screen; color: #AA0000">
