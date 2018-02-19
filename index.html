@@ -20,7 +20,6 @@
             <a-assets>
                 <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897" crossorigin preload="true"></audio>
                 <audio id="backing" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2014%20~%20Backing%20Tracks.mp3?1518505535158" crossorigin preload="true"></audio>
-                <a-asset-item id="gun" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Fkilljoy-hand-model.obj?1519008419770"></a-asset-item>
                 <a-mixin id="progressivecontrolsgazedefault"
                          position="0 0 -0.5" raycaster="objects: .UIbutton"
                          cursor="fuse: true; fuseTimeout: 1"
@@ -54,7 +53,7 @@
             
             <!-- It works great on Oculus Browser -->
             <!-- Samsung Internet VR v5.4.10.4 reads hands configution in reverse -->
-            <a-entity progressive-controls="controllerModel: #gun"></a-entity>
+            <a-entity progressive-controls></a-entity>
             
             <!-- Screen -->
             <a-box id="screen" class="UIbutton" color="#212121" position="0 3.75 -5" scale="8 4 0.1" hoverable
