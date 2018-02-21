@@ -36,7 +36,7 @@ AFRAME.registerComponent('listen', {
   init: function () {
     var element = this.el;
     
-    element.addEventListener('mouseenter', function() {
+    element.addEventListener('click', function() {
       backingTrack.play();
       vocals.play();
       drums.play();
