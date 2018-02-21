@@ -41,7 +41,7 @@ AFRAME.registerComponent('listen', {
       vocals.play();
       drums.play();
       backingVocals.play();
-      element.removeEventListener('hover-start', function() { console.log('remove!') });
+      element.parentNode.removeChild(element);
     });
   }
 });
@@ -50,11 +50,11 @@ AFRAME.registerComponent('volume-backing-track', {
   init: function () {
     var element = this.el;
     
-    element.addEventListener('mouseenter', function() {
+    element.addEventListener('hover-start', function() {
       backingTrack.mute(true);
     });
     
-    element.addEventListener('mouseleave', function() {
+    element.addEventListener('hover-end', function() {
       backingTrack.mute(false);
     });
   }
@@ -64,11 +64,11 @@ AFRAME.registerComponent('volume-vocals', {
   init: function () {
     var element = this.el;
     
-    element.addEventListener('mouseenter', function() {
+    element.addEventListener('hover-start', function() {
       vocals.mute(true);
     });
     
-    element.addEventListener('mouseleave', function() {
+    element.addEventListener('hover-end', function() {
       vocals.mute(false);
     });
   }
@@ -78,11 +78,11 @@ AFRAME.registerComponent('volume-drums', {
   init: function () {
     var element = this.el;
     
-    element.addEventListener('mouseenter', function() {
+    element.addEventListener('hover-start', function() {
       drums.mute(true);
     });
     
-    element.addEventListener('mouseleave', function() {
+    element.addEventListener('hover-end', function() {
       drums.mute(false);
     });
   }
@@ -92,11 +92,11 @@ AFRAME.registerComponent('volume-backing-vocals', {
   init: function () {
     var element = this.el;
     
-    element.addEventListener('mouseenter', function() {
+    element.addEventListener('hover-start', function() {
       backingVocals.mute(true);
     });
     
-    element.addEventListener('mouseleave', function() {
+    element.addEventListener('hover-end', function() {
       backingVocals.mute(false);
     });
   }
