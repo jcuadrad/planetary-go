@@ -8,6 +8,7 @@
         <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.min.js"></script>
         <script src="sound.js"></script>
+        <script src="terrain.js"></script>
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
@@ -16,7 +17,17 @@
               Loading...
             </h1>
         </div> -->
-        <a-scene timeout="8000">      
+        <a-scene environment="preset: starry;
+        seed: 2;
+        lightPosition: 0.0, 0.03, -0.5;
+        fog: 0.8;
+        ground: canyon;
+        groundYScale: 6.31;
+        groundTexture: walkernoise;
+        groundColor: #8a7f8a;
+        grid: none" terrain="src: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_albedoOrange.jpg?1519189792579;
+                             normal: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_normal.jpg?1519189807812;
+                             ambient: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_ao.jpg?1519189812422">     
             <a-assets>
                 <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897" crossorigin preload="true"></audio>
                 <audio id="backing" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2014%20~%20Backing%20Tracks.mp3?1518505535158" crossorigin preload="true"></audio>
@@ -44,12 +55,6 @@
                                       colliderEndEventProperty: el" sphere-collider>
                  </a-mixin>
             </a-assets>
-
-            <a-entity environment="preset: starry; skyType: color; skyColor: #f2f2f2; 
-                                   grid: 1x1; gridColor: #77ffad; 
-                                   ground: flat; groundTexture: none; groundColor: #1c1c1c;
-                                   fog: 0.4; shadow: true">
-            </a-entity> 
             
             <!-- It works great on Oculus Browser -->
             <!-- Samsung Internet VR v5.4.10.4 reads hands configution in reverse -->
