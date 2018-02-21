@@ -36,11 +36,12 @@ AFRAME.registerComponent('listen', {
   init: function () {
     var element = this.el;
     
-    element.addEventListener('click', function() {
+    element.addEventListener('hover-start', function() {
       backingTrack.play();
       vocals.play();
       drums.play();
       backingVocals.play();
+      element.removeEventListener('hover-start', function() { console.log('remove!') });
     });
   }
 });
