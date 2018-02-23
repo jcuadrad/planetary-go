@@ -1,7 +1,13 @@
-# Super Hands
+# Planetary (Go!)
 
 ## Week Two
 
-The purpose of this week will be practicing implementing actual controlers into the scene.
+A-Frame scene based on Danger Days: The True Lives of  the Fabulous Killjoys by My Chemical Romance, using the album’s aesthetic and the free stems of the song Planetary (Go!).
 
-I'll implement the Super Hands component to work and inereact with objects in the Oculus Rift.
+## Highlights
+
+🕹 **Implement 6DoF controllers into the scene:** Super Hands component to work and inereact with objects in the Oculus Rift.    
+
+🔫 **Create custom hand models**: Use Maya to export .OBJ models and import them has hand models in A-Frame.
+
+💽 **Use**
