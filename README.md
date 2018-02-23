@@ -4,7 +4,7 @@
 
 A-Frame scene based on Danger Days: The True Lives of  the Fabulous Killjoys by My Chemical Romance, using the album’s aesthetic and the free stems of the song Planetary (Go!).
 
-## Highlights
+# Highlights
 
 🕹 **Implement 6DoF controllers into the scene:** Super Hands component to work and interact with objects in the Oculus Rift.    
 
