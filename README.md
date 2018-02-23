@@ -6,8 +6,8 @@ A-Frame scene based on Danger Days: The True Lives of  the Fabulous Killjoys by 
 
 ## Highlights
 
-🕹 **Implement 6DoF controllers into the scene:** Super Hands component to work and inereact with objects in the Oculus Rift.    
+🕹 **Implement 6DoF controllers into the scene:** Super Hands component to work and interact with objects in the Oculus Rift.    
 
 🔫 **Create custom hand models**: Use Maya to export .OBJ models and import them has hand models in A-Frame.
 
-💽 **Use**
+💽 **Interactive Music**: Use howljs to play different song stems and let user start and stop on controller interaction.
