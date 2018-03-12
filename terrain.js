@@ -8,12 +8,15 @@ AFRAME.registerComponent('terrain', {
   },
   
   init: function () {
-    var el = this.el;
+    const el = this.el;
+    const obj = el.getObject3D('mesh');
+    console.log(obj);
+    // const mat = obj.el.getAttribute('material');
     
     if (el.hasLoaded) {
       var elements = document.querySelectorAll('a-entity');
-      console.log(elements);
       var terrain = elements[3];
+      console.log(el.getAttribute('material'));
 
       terrain.setAttribute('material', {
         src: this.data.src,

@@ -49,13 +49,35 @@ AFRAME.registerComponent('listen', {
 AFRAME.registerComponent('volume-backing-track', {
   init: function () {
     var element = this.el;
+    var obj = element.getObject3D('mesh');
+    var light = obj.el.children[0];
     
     element.addEventListener('hover-start', function() {
+      // Mute
       backingTrack.mute(true);
+      
+      // Modify the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        emissive: '#ff0000',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn off Light
+      light.setAttribute('visible', false);
     });
     
     element.addEventListener('hover-end', function() {
+      // Mute
       backingTrack.mute(false);
+      
+      // Back to the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        color: '#ff0000',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn on Light
+      light.setAttribute('visible', true);
     });
   }
 });
@@ -63,13 +85,35 @@ AFRAME.registerComponent('volume-backing-track', {
 AFRAME.registerComponent('volume-vocals', {
   init: function () {
     var element = this.el;
+    var obj = element.getObject3D('mesh');
+    var light = obj.el.children[0];
     
     element.addEventListener('hover-start', function() {
+      // Mute
       vocals.mute(true);
+      
+      // Modify the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        color: 'grey',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn off Light
+      light.setAttribute('visible', false);
     });
     
     element.addEventListener('hover-end', function() {
+      // Mute
       vocals.mute(false);
+      
+      // Back to the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        color: '#004eff',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn on Light
+      light.setAttribute('visible', true);
     });
   }
 });
@@ -77,27 +121,71 @@ AFRAME.registerComponent('volume-vocals', {
 AFRAME.registerComponent('volume-drums', {
   init: function () {
     var element = this.el;
+    var obj = element.getObject3D('mesh');
+    var light = obj.el.children[0];
     
     element.addEventListener('hover-start', function() {
+      // Mute
       drums.mute(true);
+      
+      // Modify the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        color: 'grey',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn off Light
+      light.setAttribute('visible', false);
     });
     
     element.addEventListener('hover-end', function() {
+      // Mute
       drums.mute(false);
+      
+      // Back to the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        color: '#ffea00',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn on Light
+      light.setAttribute('visible', true);
     });
   }
 });
 
 AFRAME.registerComponent('volume-backing-vocals', {
   init: function () {
-    var element = this.el;
+    var element = this.el;    
+    var obj = element.getObject3D('mesh');
+    var light = obj.el.children[0];
     
     element.addEventListener('hover-start', function() {
+      // Mute
       backingVocals.mute(true);
+      
+      // Modify the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        color: 'grey',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn off Light
+      light.setAttribute('visible', false);
     });
     
     element.addEventListener('hover-end', function() {
+      // Mute
       backingVocals.mute(false);
+      
+      // Back to the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        color: '#72ff00',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn on Light
+      light.setAttribute('visible', true);
     });
   }
 });
