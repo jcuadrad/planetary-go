@@ -8,21 +8,24 @@
         <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
         <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.min.js"></script>
+        <script src="video.js"></script>
         <script src="sound.js"></script>
         <script src="terrain.js"></script>
         <script src="lowpoly.js"></script>
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
-        <!-- <div id="wait">
+        <div id="wait">
             <h1>
               Loading...
             </h1>
-        </div> -->
+        </div>
         <a-scene>     
             <a-assets>
-                <audio id="vocals" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897" crossorigin preload="true"></audio>
-                <audio id="backing" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2014%20~%20Backing%20Tracks.mp3?1518505535158" crossorigin preload="true"></audio>
+                <video id="title" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FFlat%20Test%202.mov?1521057036612" preload="auto" crossorigin="anonymous"></video>
+                <img id="tex" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_albedoOrange.jpg?1519189792579" preload="auto" crossorigin="anonymous"/>
+                <img id="norm" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_normal.jpg?1519189807812" preload="auto" crossorigin="anonymous"/>
+                <img id="amb" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_ao.jpg?1519189812422" preload="auto" crossorigin="anonymous"/>
                 <a-mixin id="progressivecontrolsgazedefault"
                          position="0 0 -0.5" raycaster="objects: .UIbutton"
                          cursor="fuse: true; fuseTimeout: 1"
@@ -47,6 +50,16 @@
                                       colliderEndEventProperty: el" sphere-collider>
                  </a-mixin>
             </a-assets>
+            
+            <a-entity id="start-screen">
+              <a-sphere color="#C6252A" material="shader: flat" radius="7" position="0 3 2" scale="-1 1 1" rotation="0 -135 0"></a-sphere>
+              <a-plane color="#C6252A" scale="13 13 13" material="shader: flat" rotation="-90 0 0" position="0. 0.1 2.2"></a-plane>
+              <a-plane scale="0.3 0.3 1" material="src: #title; shader:flat" position="0 2.204 -3" geometry="height:9;width:16"></a-plane>
+              <!-- <a-plane color="white" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.292 -2.5" geometry="height:9;width:16" class="UIbutton" hoverable
+                   event-set__rescol="_event: click; color: #212121" listen>
+                   <a-text value="Let's Go!" color="#C6252A"></a-text>
+              </a-plane> -->
+            </a-entity>
           
             <a-entity environment="preset: starry;
                                    seed: 2;
@@ -56,18 +69,19 @@
                                    groundYScale: 6.31;
                                    groundTexture: walkernoise;
                                    groundColor: #8a7f8a;
-                                   grid: none" terrain="src: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_albedoOrange.jpg?1519189792579;
-                                                        normal: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_normal.jpg?1519189807812;
-                                                        ambient: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_ao.jpg?1519189812422"></a-entity>
+                                   grid: none" terrain="src: #tex;
+                                                        normal: #norm;
+                                                        ambient: #amb">
+            </a-entity>
             
             <!-- It works great on Oculus Browser -->
             <!-- Samsung Internet VR v5.4.10.4 reads hands configution in reverse -->
             <a-entity progressive-controls></a-entity>
             
-            <!-- Screen -->
+            <!-- Screen 
             <a-box id="screen" class="UIbutton" color="#212121" position="0 7 -5" scale="8 4 0.1" hoverable
                    event-set__rescol="_event: click; color: #212121" listen>
-            </a-box>
+            </a-box> -->
           
             <!-- <a-entity position="0 0 7.851" light="distance:40;intensity:0.4;type:spot;castShadow:true"></a-entity> -->
             
@@ -193,7 +207,7 @@
                                                   loop: true;
                                                   to: 0 2.5 0">
                    </a-light>
-            </a-octahedron> 
+            </a-octahedron>
             
         </a-scene>
     </body>
