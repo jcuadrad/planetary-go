@@ -1,4 +1,4 @@
-/* global AFRAME, THREE */
+/* Opening Screen Controller */
 
 var colors = ["#C7242B", "#35B725", "#0B32BD", "#DECA38"]
 

@@ -10,13 +10,13 @@ AFRAME.registerComponent('terrain', {
   init: function () {
     const el = this.el;
     const obj = el.getObject3D('mesh');
-    console.log(obj);
+    console.log('OBJ', obj);
     // const mat = obj.el.getAttribute('material');
-    
+
     if (el.hasLoaded) {
       var elements = document.querySelectorAll('a-entity');
       var terrain = elements[3];
-      console.log(el.getAttribute('material'));
+      console.log('Matreial', el.getAttribute('material'));
 
       terrain.setAttribute('material', {
         src: this.data.src,

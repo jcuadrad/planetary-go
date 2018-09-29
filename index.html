@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
     <head>
-        <title>Super Hands</title>
+        <title>Planetary GO!</title>
         <script src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Faframe.js?1519187148610"></script>
         <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
         <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
@@ -12,20 +12,19 @@
         <script src="sound.js"></script>
         <script src="terrain.js"></script>
         <script src="lowpoly.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
         <div id="wait">
-            <h1>
-              Loading...
-            </h1>
+            <h1>Loading <span id="dots">.</span></h1>
         </div>
         <a-scene>     
             <a-assets>
                 <video id="title" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FFlat%20Test%202.mov?1521057036612" preload="auto" crossorigin="anonymous"></video>
-                <img id="tex" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_albedoOrange.jpg?1519189792579" preload="auto" crossorigin="anonymous"/>
+                <!-- <img id="tex" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_albedoOrange.jpg?1519189792579" preload="auto" crossorigin="anonymous"/>
                 <img id="norm" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_normal.jpg?1519189807812" preload="auto" crossorigin="anonymous"/>
-                <img id="amb" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_ao.jpg?1519189812422" preload="auto" crossorigin="anonymous"/>
+                <img id="amb" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_ao.jpg?1519189812422" preload="auto" crossorigin="anonymous"/> -->
                 <a-mixin id="progressivecontrolsgazedefault"
                          position="0 0 -0.5" raycaster="objects: .UIbutton"
                          cursor="fuse: true; fuseTimeout: 1"
@@ -69,9 +68,10 @@
                                    groundYScale: 6.31;
                                    groundTexture: walkernoise;
                                    groundColor: #8a7f8a;
-                                   grid: none" terrain="src: #tex;
-                                                        normal: #norm;
-                                                        ambient: #amb">
+                                   grid: none" 
+                                   terrain="src: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_albedoOrange.jpg?1519189792579;
+                                            normal: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_normal.jpg?1519189807812;
+                                            ambient: https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_ao.jpg?1519189812422">
             </a-entity>
             
             <!-- It works great on Oculus Browser -->

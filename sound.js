@@ -1,9 +1,11 @@
-/* global AFRAME, THREE, Howl, backChange*/
+/* global AFRAME, THREE, Howl, backChange */
 
-// Sound Loading
+/* SOUND LOADING HELPERS */
 
+// Counter
 var loadedSoundFiles = 0;
 
+// Initialize sound files
 var backingTrack = new Howl({
       src: ['https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2014%20~%20Backing%20Tracks.mp3?1518505535158'],
       preload: true,
@@ -40,6 +42,16 @@ var drums = new Howl({
       }
   });
 
+// Loading Dots animation
+var dots = window.setInterval( function() {
+    var wait = document.getElementById("dots");
+    if ( wait.innerHTML.length > 3 ) 
+        wait.innerHTML = "";
+    else 
+        wait.innerHTML += ".";
+    }, 100);
+
+// Check for when assets are ready
 var assetsReady = () => {
   var assets = document.querySelector('a-assets');
   if (assets) {
@@ -59,15 +71,15 @@ var soundReady = () => {
     console.log('Sound Is Ready', loadedSoundFiles);
     clearInterval(checkSound)
     waitScreen.innerHTML = `
-      <h1>LETS GO!<h1>
+      <h1 class="sliding-middle-out clickable">LETS GO!<h1>
     `
     waitScreen.addEventListener('click', function() {
       var startScreen = document.getElementById('start-screen');
       var video = document.getElementById("title");
       var html = `
-        <a-plane color="white" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.292 -2.5" geometry="height:9;width:16" class="UIbutton" hoverable
-                   event-set__rescol="_event: click; color: #212121" listen>
-                   <a-text value="Let's Go!" color="#C6252A"></a-text>
+        <a-plane color="#fffff" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.05 -2.5" geometry="height:9;width:16" class="UIbutton" hoverable
+                   event-set__rescol="_event: click; color: #fffff" listen>
+                   <a-text value="Let's Go!" color="#C6252A" height="50"  width="80" position="-7 0 0"></a-text>
         </a-plane>
       `;
       startScreen.insertAdjacentHTML('beforeend', html);
@@ -91,7 +103,7 @@ var execute = () => {
 
 var checkSound = setInterval(execute, 2000);
 
-// AFRAME Components
+// A-FRAME COMPONENTS //
 
 AFRAME.registerComponent('listen', {
   init: function () {
