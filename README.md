@@ -11,16 +11,14 @@ A-Frame scene based on Danger Days: The True Lives of  the Fabulous Killjoys by 
 🔫 **Create custom hand models**: Use Maya to export .OBJ models and import them has hand models in A-Frame.
 
 💽 **Interactive Music**: Use howljs to play different song stems and let user start and stop on controller interaction.
-<<<<<<< HEAD
-=======
 
 ## To Do
 
-- Change to A-Frame 8
+- ~~Change to A-Frame 8~~
 - Change Controllers in app
 - Controller Texture
-- Ground Texture
+- ~~Ground Texture~~
 - More Tracks
 - Loading Video
 - Static Object Set Dressing
->>>>>>> glitch
+- [Comply with Web Audio API](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio)

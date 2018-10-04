@@ -58,7 +58,7 @@ AFRAME.registerComponent('lowpoly', {
         let material = new THREE.MeshBasicMaterial({
           color: '#FFFFFF',
           opacity: this.data.opacity,
-          shading: THREE.FlatShading,
+          flatShading: THREE.FlatShading,
           transparent: true
         })
   

@@ -69,7 +69,8 @@ var soundReady = () => {
   if (loadedSoundFiles === 4) {
     var waitScreen = document.getElementById('wait');
     console.log('Sound Is Ready', loadedSoundFiles);
-    clearInterval(checkSound)
+    clearInterval(dots);
+    clearInterval(checkSound);
     waitScreen.innerHTML = `
       <h1 class="sliding-middle-out clickable">LETS GO!<h1>
     `
@@ -77,8 +78,8 @@ var soundReady = () => {
       var startScreen = document.getElementById('start-screen');
       var video = document.getElementById("title");
       var html = `
-        <a-plane color="#fffff" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.05 -2.5" geometry="height:9;width:16" class="UIbutton" hoverable
-                   event-set__rescol="_event: click; color: #fffff" listen>
+        <a-plane color="#ffffff" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.05 -2.5" geometry="height:9;width:16" class="UIbutton" id="listen" hoverable
+                   event-set__rescol="_event: click; color: #C6252A" listen>
                    <a-text value="Let's Go!" color="#C6252A" height="50"  width="80" position="-7 0 0"></a-text>
         </a-plane>
       `;
@@ -112,25 +113,36 @@ AFRAME.registerComponent('listen', {
     var html = `
     <a-animation id="fade" attribute="scale" to="0 0 0" dur="4000"></a-animation>
     `
-    var play = () => {
-      backingTrack.play();
-      vocals.play();
-      drums.play();
-      backingVocals.play();
-    }
-    
-    var add = () => {
-        element.addEventListener('click', function() {
 
-        startScreen.insertAdjacentHTML('beforeend', html);
-        //element.parentNode.removeChild(element);
-        startScreen.addEventListener('animationend', function() {
-          console.log('Animation Finished!')
+    this.buttonClick = () => {
+      startScreen.insertAdjacentHTML('beforeend', html);
+      startScreen.addEventListener('animationend', function() {
+        console.log('Animation Finished!')
+        startScreen.removeEventListener('animationend', function() {
+          console.log('Removing Animation Listener!');
         });
-        var startMusic = setTimeout(play, 4000);
       });
+
+      var startMusic = setTimeout(this.playMusic, 4000);
+      element.removeEventListener('click', this.buttonClick);
+      console.log('Removed event listener.')
+    }
+    // console.log('Element of listen: ', this.playMusic());
+
+    var add = () => {
+      console.log('Adding event listener.')
+      element.addEventListener('click', this.buttonClick);
     }
     var addStart = setTimeout(add, 3000);
+  },
+  playMusic: () => {
+    console.log('playing!');
+    // clearTimeout(addStart);
+    // clearTimeout(startMusic);
+    backingTrack.play();
+    vocals.play();
+    drums.play();
+    backingVocals.play();
   }
 });
 
@@ -140,7 +152,7 @@ AFRAME.registerComponent('volume-backing-track', {
     var obj = element.getObject3D('mesh');
     var light = obj.el.children[0];
     
-    element.addEventListener('hover-start', function() {
+    element.addEventListener('raycaster-intersected', function() {
       // Mute
       backingTrack.mute(true);
       
@@ -154,7 +166,7 @@ AFRAME.registerComponent('volume-backing-track', {
       light.setAttribute('intensity', '0.1');
     });
     
-    element.addEventListener('hover-end', function() {
+    element.addEventListener('raycaster-intersected-cleared', function() {
       // Mute
       backingTrack.mute(false);
       

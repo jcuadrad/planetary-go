@@ -8,6 +8,8 @@
   align-items: center;
   justify-content: center;
   color: white;
+  position: absolute;
+  z-index: 1000000
 }
 
 #wait h1 {

@@ -2,12 +2,19 @@
 <html>
     <head>
         <title>Planetary GO!</title>
-        <script src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Faframe.js?1519187148610"></script>
+        <!--Requirements with Aframe 8-->
+        <script src="https://aframe.io/releases/0.8.2/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@3.0.3/dist/aframe-event-set-component.min.js"></script>
+
+        <!--Requirements with old A-frame
+        <script src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Faframe.js?1519187148610"></script>-->
+        <!-- <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script> -->
         <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
         <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
-        <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script>
-        <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script>
+        <!-- <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.min.js"></script>
+        <script src="sandbox.js"></script>
         <script src="video.js"></script>
         <script src="sound.js"></script>
         <script src="terrain.js"></script>
@@ -16,15 +23,24 @@
         <link rel="stylesheet" href="/style.css">
     </head>
     <body>
+        <!-- Loading Screen -->
         <div id="wait">
             <h1>Loading <span id="dots">.</span></h1>
         </div>
-        <a-scene>     
+        <!-- A-Frame Scene -->
+        <a-scene>  
+            <!-- Assets Loading -->
             <a-assets>
+                <!-- Gun OBJ -->
+                <a-asset-item id="gun-obj" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Fyellow-gun.obj?1538375005002"></a-asset-item>
+                <a-asset-item id="right-text" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Fgun-texture.png?1538374960118"></a-asset-item>
+                <!-- Start Screen Video -->
                 <video id="title" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FFlat%20Test%202.mov?1521057036612" preload="auto" crossorigin="anonymous"></video>
+                <!-- Terrain Textures -->
                 <img id="tex" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_albedoOrange.jpg?1519189792579" preload="auto" crossorigin="anonymous"/>
                 <img id="norm" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_normal.jpg?1519189807812" preload="auto" crossorigin="anonymous"/>
                 <img id="amb" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FTexturesCom_2x2_WetSand9_1024_ao.jpg?1519189812422" preload="auto" crossorigin="anonymous"/>
+                <!-- Super Hands Progressive Controls Mixins -->
                 <a-mixin id="progressivecontrolsgazedefault"
                          position="0 0 -0.5" raycaster="objects: .UIbutton"
                          cursor="fuse: true; fuseTimeout: 1"
@@ -42,24 +58,25 @@
                                       colliderEndEvent: raycaster-intersection-cleared;
                                       colliderEndEventProperty: el">
                 </a-mixin>
-                 <a-mixin id="progressivecontrolstouchdefault" line="color: #FF00FF" raycaster="showLine: true; objects: .UIbutton"
+                <a-mixin id="progressivecontrolstouchdefault" line="color: #FF00FF" raycaster="showLine: true; objects: .UIbutton"
                           super-hands="colliderEvent: raycaster-intersection;
                                       colliderEventProperty: els;
                                       colliderEndEvent: raycaster-intersection-cleared;
-                                      colliderEndEventProperty: el" sphere-collider>
-                 </a-mixin>
+                                      colliderEndEventProperty: el" sphere-collider
+                                      obj-model="obj: #gun-obj;">
+                </a-mixin>
+                <!-- Custom Controllers Mixins -->
+                <a-mixin id="oculusmixin" laser-controls raycaster="objects: .UIbutton; showLine: true;" line="color: red;" obj-model="obj: #gun-obj;"></a-mixin>
             </a-assets>
             
+            <!-- Start Screen For VR Interaction -->
             <a-entity id="start-screen">
-              <a-sphere color="#C6252A" material="shader: flat" radius="7" position="0 3 2" scale="-1 1 1" rotation="0 -135 0"></a-sphere>
+              <a-sphere color="#C6252A" material="shader: flat" radius="7" position="0 3 2" scale="1 1 1" rotation="0 -135 0" side="back"></a-sphere>
               <a-plane color="#C6252A" scale="13 13 13" material="shader: flat" rotation="-90 0 0" position="0. 0.1 2.2"></a-plane>
               <a-plane scale="0.3 0.3 1" material="src: #title; shader:flat" position="0 2.204 -3" geometry="height:9;width:16"></a-plane>
-              <!-- <a-plane color="white" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.292 -2.5" geometry="height:9;width:16" class="UIbutton" hoverable
-                   event-set__rescol="_event: click; color: #212121" listen>
-                   <a-text value="Let's Go!" color="#C6252A"></a-text>
-              </a-plane> -->
             </a-entity>
           
+            <!-- Environment Preset w/ Custom Terrain Component -->
             <a-entity environment="preset: starry;
                                    seed: 2;
                                    lightPosition: 0.0, 0.03, 0.5;
@@ -74,18 +91,10 @@
                                             ambient: #amb">
             </a-entity>
             
-            <!-- It works great on Oculus Browser -->
-            <!-- Samsung Internet VR v5.4.10.4 reads hands configution in reverse -->
-            <a-entity progressive-controls></a-entity>
+            <!-- Progressive Controls - Super Hands Component -->
+            <!-- <a-entity progressive-controls></a-entity> -->
             
-            <!-- Screen 
-            <a-box id="screen" class="UIbutton" color="#212121" position="0 7 -5" scale="8 4 0.1" hoverable
-                   event-set__rescol="_event: click; color: #212121" listen>
-            </a-box> -->
-          
-            <!-- <a-entity position="0 0 7.851" light="distance:40;intensity:0.4;type:spot;castShadow:true"></a-entity> -->
-            
-            <!-- Left Button -->
+            <!-- Left Orb | Backing Track -->
             <a-octahedron id="left" position="-8 3 -5" scale="1 1 1" hoverable
                    detail="2"
                    radius="2"
@@ -116,7 +125,7 @@
                    </a-light>
             </a-octahedron>
           
-            <!-- Center Left Button -->
+            <!-- Center Left Orb | Vocals -->
             <a-octahedron position="-3 3 -7" scale="1 1 1" hoverable
                    detail="2"
                    radius="2"       
@@ -147,7 +156,7 @@
                    </a-light>
             </a-octahedron>
           
-            <!-- Center Right Button -->
+            <!-- Center Right Orb | Backing Vocals -->
             <a-octahedron position="3 3 -7" scale="1 1 1" hoverable
                    detail="2"
                    radius="2"       
@@ -178,7 +187,7 @@
                    </a-light>
             </a-octahedron> 
           
-            <!-- Right Button -->
+            <!-- Right Orb | Drums -->
             <a-octahedron position="8 3 -5" scale="1 1 1" hoverable
                    detail="2"
                    radius="2"       
@@ -208,6 +217,15 @@
                                                   to: 0 2.5 0">
                    </a-light>
             </a-octahedron>
+            
+            <a-camera>
+                    <a-entity   cursor="fuse: false; fuseTimeout: 500"
+                        position="0 0 -1"
+                        geometry="primitive: ring; radiusInner: 0.005; radiusOuter: 0.01"
+                        material="color: grey; shader: flat"
+                        raycaster="objects: .UIbutton">
+                    </a-entity>               
+            </a-camera>
             
         </a-scene>
     </body>
