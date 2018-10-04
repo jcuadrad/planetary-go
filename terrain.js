@@ -12,9 +12,7 @@ AFRAME.registerComponent('terrain', {
 
     if (el.hasLoaded) {
       var elements = document.querySelectorAll('a-entity');
-      console.log(elements);
       var terrain = elements[4];
-      console.log('Matreial', el.getAttribute('material'));
 
       terrain.setAttribute('material', {
         src: this.data.src,

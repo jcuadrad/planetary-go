@@ -78,8 +78,7 @@ var soundReady = () => {
       var startScreen = document.getElementById('start-screen');
       var video = document.getElementById("title");
       var html = `
-        <a-plane color="#ffffff" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.05 -2.5" geometry="height:9;width:16" class="UIbutton" id="listen" hoverable
-                   event-set__rescol="_event: click; color: #C6252A" listen>
+        <a-plane color="#ffffff" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.05 -2.5" geometry="height:9;width:16" class="UIbutton" id="listen" listen>
                    <a-text value="Let's Go!" color="#C6252A" height="50"  width="80" position="-7 0 0"></a-text>
         </a-plane>
       `;
@@ -109,36 +108,36 @@ var checkSound = setInterval(execute, 2000);
 AFRAME.registerComponent('listen', {
   init: function () {
     var element = this.el;
-    var startScreen = document.getElementById('start-screen');
+    this.startScreen = document.getElementById('start-screen');
     var html = `
     <a-animation id="fade" attribute="scale" to="0 0 0" dur="4000"></a-animation>
     `
+    this.checkAnimationEnded = () => {
+      console.log('Animation Finished!')
+      this.startScreen.parentNode.removeChild(this.startScreen);
+      console.log('Removed StartScreen!')
+    }
 
     this.buttonClick = () => {
-      startScreen.insertAdjacentHTML('beforeend', html);
-      startScreen.addEventListener('animationend', function() {
-        console.log('Animation Finished!')
-        startScreen.removeEventListener('animationend', function() {
-          console.log('Removing Animation Listener!');
-        });
-      });
+      this.startScreen.insertAdjacentHTML('beforeend', html);
+      this.startScreen.addEventListener('animationend', this.checkAnimationEnded);
 
-      var startMusic = setTimeout(this.playMusic, 4000);
+      this.startMusic = setTimeout(this.playMusic, 4000);
       element.removeEventListener('click', this.buttonClick);
       console.log('Removed event listener.')
     }
-    // console.log('Element of listen: ', this.playMusic());
 
     var add = () => {
       console.log('Adding event listener.')
       element.addEventListener('click', this.buttonClick);
     }
-    var addStart = setTimeout(add, 3000);
+
+    this.addStart = setTimeout(add, 3000);
   },
   playMusic: () => {
     console.log('playing!');
-    // clearTimeout(addStart);
-    // clearTimeout(startMusic);
+    clearTimeout(this.addStart);
+    clearTimeout(this.startMusic);
     backingTrack.play();
     vocals.play();
     drums.play();
@@ -188,7 +187,7 @@ AFRAME.registerComponent('volume-vocals', {
     var obj = element.getObject3D('mesh');
     var light = obj.el.children[0];
     
-    element.addEventListener('hover-start', function() {
+    element.addEventListener('raycaster-intersected', function() {
       // Mute
       vocals.mute(true);
       
@@ -202,7 +201,7 @@ AFRAME.registerComponent('volume-vocals', {
       light.setAttribute('intensity', '0.1');
     });
     
-    element.addEventListener('hover-end', function() {
+    element.addEventListener('raycaster-intersected-cleared', function() {
       // Mute
       vocals.mute(false);
       
@@ -224,7 +223,7 @@ AFRAME.registerComponent('volume-drums', {
     var obj = element.getObject3D('mesh');
     var light = obj.el.children[0];
     
-    element.addEventListener('hover-start', function() {
+    element.addEventListener('raycaster-intersected', function() {
       // Mute
       drums.mute(true);
       
@@ -238,7 +237,7 @@ AFRAME.registerComponent('volume-drums', {
       light.setAttribute('intensity', '0.1');
     });
     
-    element.addEventListener('hover-end', function() {
+    element.addEventListener('raycaster-intersected-cleared', function() {
       // Mute
       drums.mute(false);
       
@@ -260,7 +259,7 @@ AFRAME.registerComponent('volume-backing-vocals', {
     var obj = element.getObject3D('mesh');
     var light = obj.el.children[0];
     
-    element.addEventListener('hover-start', function() {
+    element.addEventListener('raycaster-intersected', function() {
       // Mute
       backingVocals.mute(true);
       
@@ -274,7 +273,7 @@ AFRAME.registerComponent('volume-backing-vocals', {
       light.setAttribute('intensity', '0.1');
     });
     
-    element.addEventListener('hover-end', function() {
+    element.addEventListener('raycaster-intersected-cleared', function() {
       // Mute
       backingVocals.mute(false);
       

@@ -18,13 +18,3 @@ AFRAME.registerComponent('cursor-listener', {
         });
       }
   });
-
-  AFRAME.registerComponent('hoverable', {
-      init: function() {
-          var el = this.el;
-
-          el.addEventListener('raycaster-intersected', function (evt) {
-            
-          });
-      }
-  })
