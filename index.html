@@ -14,6 +14,7 @@
         <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
         <!-- <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.min.js"></script>
+        <script src="controller.js"></script>
         <script src="sandbox.js"></script>
         <script src="video.js"></script>
         <script src="sound.js"></script>
@@ -28,7 +29,7 @@
             <h1>Loading <span id="dots">.</span></h1>
         </div>
         <!-- A-Frame Scene -->
-        <a-scene>  
+        <a-scene check-platform>  
             <!-- Assets Loading -->
             <a-assets>
                 <!-- Gun OBJ -->
@@ -66,7 +67,7 @@
                                       obj-model="obj: #gun-obj;">
                 </a-mixin>
                 <!-- Custom Controllers Mixins -->
-                <a-mixin id="oculusmixin" laser-controls raycaster="objects: .UIbutton; showLine: true;" line="color: red;" obj-model="obj: #gun-obj;"></a-mixin>
+                <a-mixin id="oculus" raycaster="objects: .UIbutton; showLine: true;" line="color: red;" obj-model="obj: #gun-obj;"></a-mixin>
             </a-assets>
             
             <!-- Start Screen For VR Interaction -->
@@ -93,7 +94,7 @@
             
             <!-- Progressive Controls - Super Hands Component -->
             <!-- <a-entity progressive-controls></a-entity> -->
-            
+
             <!-- Left Orb | Backing Track -->
             <a-octahedron id="left" position="-8 3 -5" scale="1 1 1"
                    detail="2"
@@ -218,12 +219,12 @@
             </a-octahedron>
             
             <a-camera>
-                    <a-entity   cursor="fuse: false; fuseTimeout: 500"
+                    <!-- <a-entity   cursor="fuse: false; fuseTimeout: 500"
                         position="0 0 -1"
                         geometry="primitive: ring; radiusInner: 0.005; radiusOuter: 0.01"
                         material="color: grey; shader: flat"
                         raycaster="objects: .UIbutton">
-                    </a-entity>               
+                    </a-entity>                -->
             </a-camera>
             
         </a-scene>

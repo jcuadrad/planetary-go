@@ -147,11 +147,15 @@ AFRAME.registerComponent('listen', {
 
 AFRAME.registerComponent('volume-backing-track', {
   init: function () {
-    var element = this.el;
-    var obj = element.getObject3D('mesh');
+    this.element = this.el;
+    var obj = this.element.getObject3D('mesh');
     var light = obj.el.children[0];
+    this.leaveOff = false;
+    this.platformDetected = false;
     
-    element.addEventListener('raycaster-intersected', function() {
+    this.element.addEventListener('raycaster-intersected', function() {
+      this.leaveOff = false;
+      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
       // Mute
       backingTrack.mute(true);
       
@@ -165,19 +169,41 @@ AFRAME.registerComponent('volume-backing-track', {
       light.setAttribute('intensity', '0.1');
     });
     
-    element.addEventListener('raycaster-intersected-cleared', function() {
-      // Mute
-      backingTrack.mute(false);
-      
-      // Back to the color of the material
-      obj.material = new THREE.MeshPhongMaterial({
-        color: '#ff0000',
-        flatShading: THREE.FlatShading
-      })
-      
-      // Turn on Light
-      light.setAttribute('intensity', '0.4');
+    this.element.addEventListener('raycaster-intersected-cleared', function() {
+      if (!this.leaveOff) {
+        // Mute
+        backingTrack.mute(false);
+        
+        // Back to the color of the material
+        obj.material = new THREE.MeshPhongMaterial({
+          color: '#ff0000',
+          flatShading: THREE.FlatShading
+        })
+        
+        // Turn on Light
+        light.setAttribute('intensity', '0.4');
+      }
     });
+  },
+  tick: function() {
+    if (!this.platformDetected) {
+      console.log('Platform for Click: ', platform)
+      if (platform === 'Desktop') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('mousedown', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      } else if (platform === 'Headset') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('triggerdown', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      }
+    }
   }
 });
 

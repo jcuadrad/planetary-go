@@ -13,5 +13,3 @@ function changeColor() {
 }
 
 var backChange = setInterval(changeColor, 700) 
-
-console.log('Headsets Connected?: ', AFRAME.utils.device.checkHeadsetConnected());
