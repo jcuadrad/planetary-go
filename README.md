@@ -15,8 +15,8 @@ A-Frame scene based on Danger Days: The True Lives of  the Fabulous Killjoys by 
 ## To Do
 
 - ~~Change to A-Frame 8~~
-- Change Controllers in app
-- Controller Texture
+- ~~Change Controllers in app~~
+- ~~Controller Texture~~
 - ~~Ground Texture~~
 - More Tracks
 - Loading Video

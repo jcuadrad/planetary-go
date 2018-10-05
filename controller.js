@@ -16,9 +16,19 @@ AFRAME.registerComponent('check-platform', {
          `;
         var oculusControllers = `
             <!-- Custom Controls -->
-            <a-entity laser-controls="hand: left;" oculus-touch-controls="model: false; orientationOffset: -30 0 0" mixin="oculus"></a-entity>
-            <a-entity laser-controls="hand: right;" oculus-touch-controls="model: false; orientationOffset: -30 0 0" mixin="oculus"></a-entity>
+            <a-entity laser-controls="hand: left;" oculus-touch-controls="model: false; orientationOffset: -30 0 0" mixin="gun-left"></a-entity>
+            <a-entity laser-controls="hand: right;" oculus-touch-controls="model: false; orientationOffset: -30 0 0" mixin="gun-right"></a-entity>
          `;
+         var tex = new THREE.TextureLoader().load('./assets/gun-texture.png');
+
+         document.addEventListener('model-loaded', (e) => {
+              if (e.srcElement.components["oculus-touch-controls"].data.hand === 'left') {
+                console.log(e.srcElement.components["oculus-touch-controls"].data.hand);
+                e.detail.model.traverse(function(node) {
+                    if (node.isMesh) node.material.map = tex;
+                });
+              } 
+          });
 
         if (!AFRAME.utils.device.checkHeadsetConnected()) {
             platform = 'Desktop';

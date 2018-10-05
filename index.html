@@ -33,7 +33,8 @@
             <!-- Assets Loading -->
             <a-assets>
                 <!-- Gun OBJ -->
-                <a-asset-item id="gun-obj" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Fyellow-gun.obj?1538375005002"></a-asset-item>
+                <a-asset-item id="gun-obj" src="./assets/yellow-gun.obj"></a-asset-item>
+                <a-asset-item id="gun-mtl" src="./assets/yellow-gun.mtl"></a-asset-item>
                 <a-asset-item id="right-text" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Fgun-texture.png?1538374960118"></a-asset-item>
                 <!-- Start Screen Video -->
                 <video id="title" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FFlat%20Test%202.mov?1521057036612" preload="auto" crossorigin="anonymous"></video>
@@ -67,7 +68,8 @@
                                       obj-model="obj: #gun-obj;">
                 </a-mixin>
                 <!-- Custom Controllers Mixins -->
-                <a-mixin id="oculus" raycaster="objects: .UIbutton; showLine: true;" line="color: red;" obj-model="obj: #gun-obj;"></a-mixin>
+                <a-mixin id="gun-right" raycaster="objects: .UIbutton; showLine: true;" line="color: red;" obj-model="obj: #gun-obj;"></a-mixin>
+                <a-mixin id="gun-left" raycaster="objects: .UIbutton; showLine: true;" line="color: red;" obj-model="obj: #gun-obj;"></a-mixin>
             </a-assets>
             
             <!-- Start Screen For VR Interaction -->
