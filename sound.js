@@ -198,7 +198,7 @@ AFRAME.registerComponent('volume-backing-track', {
       } else if (platform === 'Headset') {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
-        this.element.addEventListener('triggerdown', function() {
+        this.element.addEventListener('click', function() {
           this.leaveOff = !this.leaveOff;
           console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
         });
@@ -209,11 +209,15 @@ AFRAME.registerComponent('volume-backing-track', {
 
 AFRAME.registerComponent('volume-vocals', {
   init: function () {
-    var element = this.el;
-    var obj = element.getObject3D('mesh');
+    this.element = this.el;
+    var obj = this.element.getObject3D('mesh');
     var light = obj.el.children[0];
+    this.leaveOff = false;
+    this.platformDetected = false;
     
-    element.addEventListener('raycaster-intersected', function() {
+    this.element.addEventListener('raycaster-intersected', function() {
+      this.leaveOff = false;
+      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
       // Mute
       vocals.mute(true);
       
@@ -227,29 +231,55 @@ AFRAME.registerComponent('volume-vocals', {
       light.setAttribute('intensity', '0.1');
     });
     
-    element.addEventListener('raycaster-intersected-cleared', function() {
-      // Mute
-      vocals.mute(false);
-      
-      // Back to the color of the material
-      obj.material = new THREE.MeshPhongMaterial({
-        color: '#004eff',
-        flatShading: THREE.FlatShading
-      })
-      
-      // Turn on Light
-      light.setAttribute('intensity', '0.4');
+    this.element.addEventListener('raycaster-intersected-cleared', function() {
+      if (!this.leaveOff) {
+        // Mute
+        vocals.mute(false);
+        
+        // Back to the color of the material
+        obj.material = new THREE.MeshPhongMaterial({
+          color: '#004eff',
+          flatShading: THREE.FlatShading
+        })
+        
+        // Turn on Light
+        light.setAttribute('intensity', '0.4');
+      }
     });
+  },
+  tick: function() {
+    if (!this.platformDetected) {
+      console.log('Platform for Click: ', platform)
+      if (platform === 'Desktop') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('mousedown', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      } else if (platform === 'Headset') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('click', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      }
+    }
   }
 });
 
 AFRAME.registerComponent('volume-drums', {
   init: function () {
-    var element = this.el;
-    var obj = element.getObject3D('mesh');
+    this.element = this.el;
+    var obj = this.element.getObject3D('mesh');
     var light = obj.el.children[0];
+    this.leaveOff = false;
+    this.platformDetected = false;
     
-    element.addEventListener('raycaster-intersected', function() {
+    this.element.addEventListener('raycaster-intersected', function() {
+      this.leaveOff = false;
+      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
       // Mute
       drums.mute(true);
       
@@ -263,29 +293,55 @@ AFRAME.registerComponent('volume-drums', {
       light.setAttribute('intensity', '0.1');
     });
     
-    element.addEventListener('raycaster-intersected-cleared', function() {
-      // Mute
-      drums.mute(false);
-      
-      // Back to the color of the material
-      obj.material = new THREE.MeshPhongMaterial({
-        color: '#ffea00',
-        flatShading: THREE.FlatShading
-      })
-      
-      // Turn on Light
-      light.setAttribute('intensity', '0.4');
+    this.element.addEventListener('raycaster-intersected-cleared', function() {
+      if (!this.leaveOff) {
+        // Mute
+        drums.mute(false);
+        
+        // Back to the color of the material
+        obj.material = new THREE.MeshPhongMaterial({
+          color: '#ffea00',
+          flatShading: THREE.FlatShading
+        })
+        
+        // Turn on Light
+        light.setAttribute('intensity', '0.4');
+      }
     });
+  },
+  tick: function() {
+    if (!this.platformDetected) {
+      console.log('Platform for Click: ', platform)
+      if (platform === 'Desktop') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('mousedown', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      } else if (platform === 'Headset') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('click', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      }
+    }
   }
 });
 
 AFRAME.registerComponent('volume-backing-vocals', {
   init: function () {
-    var element = this.el;    
-    var obj = element.getObject3D('mesh');
+    this.element = this.el;
+    var obj = this.element.getObject3D('mesh');
     var light = obj.el.children[0];
+    this.leaveOff = false;
+    this.platformDetected = false;
     
-    element.addEventListener('raycaster-intersected', function() {
+    this.element.addEventListener('raycaster-intersected', function() {
+      this.leaveOff = false;
+      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
       // Mute
       backingVocals.mute(true);
       
@@ -299,18 +355,40 @@ AFRAME.registerComponent('volume-backing-vocals', {
       light.setAttribute('intensity', '0.1');
     });
     
-    element.addEventListener('raycaster-intersected-cleared', function() {
-      // Mute
-      backingVocals.mute(false);
-      
-      // Back to the color of the material
-      obj.material = new THREE.MeshPhongMaterial({
-        color: '#72ff00',
-        flatShading: THREE.FlatShading
-      })
-      
-      // Turn on Light
-      light.setAttribute('intensity', '0.4');
+    this.element.addEventListener('raycaster-intersected-cleared', function() {
+      if (!this.leaveOff) {
+        // Mute
+        backingVocals.mute(false);
+        
+        // Back to the color of the material
+        obj.material = new THREE.MeshPhongMaterial({
+          color: '#72ff00',
+          flatShading: THREE.FlatShading
+        })
+        
+        // Turn on Light
+        light.setAttribute('intensity', '0.4');
+      }
     });
+  },
+  tick: function() {
+    if (!this.platformDetected) {
+      console.log('Platform for Click: ', platform)
+      if (platform === 'Desktop') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('mousedown', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      } else if (platform === 'Headset') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('click', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      }
+    }
   }
 });

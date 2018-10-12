@@ -12,6 +12,7 @@
         <script src="https://unpkg.com/aframe-event-set-component@^4.0.0/dist/aframe-event-set-component.min.js"></script> -->
         <script src="https://unpkg.com/aframe-animation-component@4.0.0/dist/aframe-animation-component.min.js"></script>
         <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+        <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v4.2.0/dist/aframe-extras.min.js"></script>
         <!-- <script src="https://unpkg.com/super-hands@2.1.0/dist/super-hands.min.js"></script> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.9/howler.min.js"></script>
         <script src="controller.js"></script>
@@ -32,10 +33,9 @@
         <a-scene check-platform>  
             <!-- Assets Loading -->
             <a-assets>
-                <!-- Gun OBJ -->
-                <a-asset-item id="gun-obj" src="./assets/yellow-gun.obj"></a-asset-item>
-                <a-asset-item id="gun-mtl" src="./assets/yellow-gun.mtl"></a-asset-item>
-                <a-asset-item id="right-text" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2Fgun-texture.png?1538374960118"></a-asset-item>
+                <!-- Guns GLTF -->
+                <a-asset-item id="right-gun" src=".\assets\gltf\yellow-gun\Metallic-RougnessPBR-Gun.gltf" crossorigin="anonymous"></a-asset-item>
+                <a-asset-item id="left-gun" src=".\assets\gltf\red-gun\Red-Gun-003.gltf"></a-asset-item>
                 <!-- Start Screen Video -->
                 <video id="title" src="https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FFlat%20Test%202.mov?1521057036612" preload="auto" crossorigin="anonymous"></video>
                 <!-- Terrain Textures -->
@@ -68,8 +68,8 @@
                                       obj-model="obj: #gun-obj;">
                 </a-mixin>
                 <!-- Custom Controllers Mixins -->
-                <a-mixin id="gun-right" raycaster="objects: .UIbutton; showLine: true;" line="color: red;" obj-model="obj: #gun-obj;"></a-mixin>
-                <a-mixin id="gun-left" raycaster="objects: .UIbutton; showLine: true;" line="color: red;" obj-model="obj: #gun-obj;"></a-mixin>
+                <a-mixin id="gun-right" raycaster="objects: .UIbutton; showLine: true;" line="color: red;" gltf-model="#right-gun" scale="0.055 0.055 0.055"></a-mixin>
+                <a-mixin id="gun-left" raycaster="objects: .UIbutton; showLine: true;" line="color: red;" gltf-model="#left-gun" scale="0.056 0.056 0.056"></a-mixin>
             </a-assets>
             
             <!-- Start Screen For VR Interaction -->
@@ -78,6 +78,8 @@
               <a-plane color="#C6252A" scale="13 13 13" material="shader: flat" rotation="-90 0 0" position="0. 0.1 2.2"></a-plane>
               <a-plane scale="0.3 0.3 1" material="src: #title; shader:flat" position="0 2.204 -3" geometry="height:9;width:16"></a-plane>
             </a-entity>
+
+            <!-- <a-entity gltf-model="#gun-gltf" position="0 1.3 -2" scale="0.5 0.5 0.5" rotation="0 90 0"></a-entity> -->
           
             <!-- Environment Preset w/ Custom Terrain Component -->
             <a-entity environment="preset: starry;
@@ -93,6 +95,8 @@
                                             normal: #norm;
                                             ambient: #amb">
             </a-entity>
+
+            <a-entity light="type:point;intensity:0.3" position="0 1.3267406676906208 0"></a-entity>
             
             <!-- Progressive Controls - Super Hands Component -->
             <!-- <a-entity progressive-controls></a-entity> -->
