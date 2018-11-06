@@ -17,6 +17,7 @@ let firstScreen = document.getElementById('white-background');
 console.log(video);
 
 video.addEventListener('canplay', (e) => {
+  console.log('Video Can Be Played Now!');
   clearInterval(dots);
   playButton.innerHTML = 'ARE YOU READY?';
   playButton.addEventListener('click', () => {
