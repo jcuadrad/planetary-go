@@ -210,6 +210,8 @@ AFRAME.registerComponent('volume-backing-track', {
           this.leaveOff = !this.leaveOff;
           console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
         });
+      } else if (platform === 'Mobile') {
+        this.platformDetected = true;
       }
     }
   }
@@ -270,6 +272,8 @@ AFRAME.registerComponent('volume-vocals', {
           this.leaveOff = !this.leaveOff;
           console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
         });
+      } else if (platform === 'Mobile') {
+        this.platformDetected = true;
       }
     }
   }
@@ -330,6 +334,8 @@ AFRAME.registerComponent('volume-drums', {
           this.leaveOff = !this.leaveOff;
           console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
         });
+      } else if (platform === 'Mobile') {
+        this.platformDetected = true;
       }
     }
   }
@@ -390,6 +396,8 @@ AFRAME.registerComponent('volume-backing-vocals', {
           this.leaveOff = !this.leaveOff;
           console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
         });
+      } else if (platform === 'Mobile') {
+        this.platformDetected = true;
       }
     }
   }
@@ -451,6 +459,8 @@ AFRAME.registerComponent('volume-bass', {
           this.leaveOff = !this.leaveOff;
           console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
         });
+      } else if (platform === 'Mobile') {
+        this.platformDetected = true;
       }
     }
   }
@@ -511,6 +521,8 @@ AFRAME.registerComponent('volume-guitars', {
           this.leaveOff = !this.leaveOff;
           console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
         });
+      } else if (platform === 'Mobile') {
+        this.platformDetected = true;
       }
     }
   }
