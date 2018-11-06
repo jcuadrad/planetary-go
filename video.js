@@ -1,15 +1,26 @@
 /* Opening Screen Controller */
 
-var colors = ["#C7242B", "#35B725", "#0B32BD", "#DECA38"]
+// Loading Dots animation
+var dots = window.setInterval( function() {
+  var wait = document.getElementById("dots");
+  if ( wait.innerHTML.length > 3 ) 
+      wait.innerHTML = "";
+  else 
+      wait.innerHTML += ".";
+  }, 100);
 
-function colorOptions (array) {
-    var final = array[Math.floor(Math.random()*array.length)];
-  return final;
-} 
+// Detect opening video events.
+let video = document.getElementById('fullscreen-bg__video');
+let playButton = document.getElementsByClassName('button')[0];
+let firstScreen = document.getElementById('white-background');
 
-function changeColor() {
-  var background = document.getElementById("wait");
-    background.style.backgroundColor = colorOptions(colors);
-}
+console.log(video);
 
-var backChange = setInterval(changeColor, 700) 
+video.addEventListener('canplay', (e) => {
+  clearInterval(dots);
+  playButton.innerHTML = 'ARE YOU READY?';
+  playButton.addEventListener('click', () => {
+    video.play();
+    firstScreen.remove();
+  });
+})

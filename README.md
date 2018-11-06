@@ -18,8 +18,9 @@ A-Frame scene based on Danger Days: The True Lives of  the Fabulous Killjoys by 
 - ~~Change Controllers in app~~
 - ~~Controller Texture~~
 - ~~Ground Texture~~
-- Leave Orb Off on Click or Trigger Down
-- More Tracks
-- Loading Video
+- ~~Leave Orb Off on Click or Trigger Down~~
+- Get Working on Mobile
+- ~~More Tracks~~
+- ~~Loading Video~~
 - Static Object Set Dressing
 - [Comply with Web Audio API](https://developers.google.com/web/updates/2017/09/autoplay-policy-changes#webaudio)

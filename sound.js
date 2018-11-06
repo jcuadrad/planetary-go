@@ -7,7 +7,7 @@ var loadedSoundFiles = 0;
 
 // Initialize sound files
 var backingTrack = new Howl({
-      src: ['https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2014%20~%20Backing%20Tracks.mp3?1518505535158'],
+      src: ['./assets/stems/PLANETARY(GO!)_BACKINGTRACKS_192.mp3'],
       preload: true,
       onload: function() {
         loadedSoundFiles++
@@ -16,7 +16,7 @@ var backingTrack = new Howl({
   });
 
 var vocals = new Howl({
-      src: ['https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2001%20~%20Lead%20Vocal.mp3?1518505552897'],
+      src: ['./assets/stems/PLANETARY(GO!)_LEADVOCALS_192.mp3'],
       preload: true,
       onload: function() {
         loadedSoundFiles++
@@ -25,7 +25,7 @@ var vocals = new Howl({
   });
 
 var backingVocals = new Howl({
-      src: ['https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2002%20~%20Backing%20Vocals.mp3?1518677841612'],
+      src: ['./assets/stems/PLANETARY(GO!)_BACKINGVOCALS_192.mp3'],
       preload: true,
       onload: function() {
         loadedSoundFiles++
@@ -34,7 +34,7 @@ var backingVocals = new Howl({
   });
 
 var drums = new Howl({       
-      src: ['https://cdn.glitch.com/d33f835c-f9e3-4d9b-a2fc-e8780d036b67%2FPlanetary%20(Go!)%20~%20Stems%20~%2003%20~%20Drums.mp3?1518677850598'],
+      src: ['./assets/stems/PLANETARY(GO!)_DRUMS_192.mp3'],
       preload: true,
       onload: function() {
         loadedSoundFiles++
@@ -42,14 +42,23 @@ var drums = new Howl({
       }
   });
 
-// Loading Dots animation
-var dots = window.setInterval( function() {
-    var wait = document.getElementById("dots");
-    if ( wait.innerHTML.length > 3 ) 
-        wait.innerHTML = "";
-    else 
-        wait.innerHTML += ".";
-    }, 100);
+var bass = new Howl({       
+      src: ['./assets/stems/PLANETARY(GO!)_BASS_192.mp3'],
+      preload: true,
+      onload: function() {
+        loadedSoundFiles++
+        console.log('Finished Bass!', loadedSoundFiles);
+      }
+  });
+
+var guitars = new Howl({       
+      src: ['./assets/stems/PLANETARY(GO!)_GUITARS_192.mp3'],
+      preload: true,
+      onload: function() {
+        loadedSoundFiles++
+        console.log('Finished Guitars!', loadedSoundFiles);
+      }
+  });
 
 // Check for when assets are ready
 var assetsReady = () => {
@@ -57,7 +66,7 @@ var assetsReady = () => {
   if (assets) {
     console.log('Assets Ready', assets);
     assets.addEventListener('loaded', function () {
-    console.log("OK LOADED");
+    console.log("OK LOADED"); 
     });
   } else {
     console.log('Assets Not Ready');
@@ -66,15 +75,18 @@ var assetsReady = () => {
 }
 
 var soundReady = () => {
-  if (loadedSoundFiles === 4) {
+  if (loadedSoundFiles === 6) {
     var waitScreen = document.getElementById('wait');
+    var loading = document.getElementById('loading');
     console.log('Sound Is Ready', loadedSoundFiles);
-    clearInterval(dots);
     clearInterval(checkSound);
-    waitScreen.innerHTML = `
-      <h1 class="sliding-middle-out clickable">LETS GO!<h1>
-    `
+    loading.innerHTML = 'CLICK ANYWHERE ON THE SCREEN TO CONTINUE.';
+    // var waitScreenReady = `
+    //   <h1 class="sliding-middle-out clickable" class="ready">LETS GO!<h1>
+    // `
+    // waitScreen.insertAdjacentHTML('afterbegin', waitScreenReady)
     waitScreen.addEventListener('click', function() {
+      console.log('Removing...');
       var startScreen = document.getElementById('start-screen');
       var video = document.getElementById("title");
       var html = `
@@ -84,12 +96,8 @@ var soundReady = () => {
       `;
       startScreen.insertAdjacentHTML('beforeend', html);
       waitScreen.remove();
-      clearInterval(backChange);
       video.play();
     });
-    /* var button = document.createElement('p')
-    button.innerHTML = 'Lets GO!'
-    waitScreen.appendChild(button);*/
   } else {
     console.log('Sound Not Ready', loadedSoundFiles);
     return;
@@ -142,6 +150,8 @@ AFRAME.registerComponent('listen', {
     vocals.play();
     drums.play();
     backingVocals.play();
+    guitars.play();
+    bass.play();
   }
 });
 
@@ -149,27 +159,25 @@ AFRAME.registerComponent('volume-backing-track', {
   init: function () {
     this.element = this.el;
     var obj = this.element.getObject3D('mesh');
+    var mat = obj.material;
     var light = obj.el.children[0];
     this.leaveOff = false;
     this.platformDetected = false;
     
-    this.element.addEventListener('raycaster-intersected', function() {
+    this.element.addEventListener('raycaster-intersected', () => {
       this.leaveOff = false;
       console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
       // Mute
       backingTrack.mute(true);
       
       // Modify the color of the material
-      obj.material = new THREE.MeshPhongMaterial({
-        emissive: '#ff0000',
-        flatShading: THREE.FlatShading
-      })
+      obj.material = mat;
       
       // Turn off Light
       light.setAttribute('intensity', '0.1');
     });
     
-    this.element.addEventListener('raycaster-intersected-cleared', function() {
+    this.element.addEventListener('raycaster-intersected-cleared', () => {
       if (!this.leaveOff) {
         // Mute
         backingTrack.mute(false);
@@ -211,11 +219,12 @@ AFRAME.registerComponent('volume-vocals', {
   init: function () {
     this.element = this.el;
     var obj = this.element.getObject3D('mesh');
+    var mat = obj.material;
     var light = obj.el.children[0];
     this.leaveOff = false;
     this.platformDetected = false;
     
-    this.element.addEventListener('raycaster-intersected', function() {
+    this.element.addEventListener('raycaster-intersected', () => {
       this.leaveOff = false;
       console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
       // Mute
@@ -231,16 +240,13 @@ AFRAME.registerComponent('volume-vocals', {
       light.setAttribute('intensity', '0.1');
     });
     
-    this.element.addEventListener('raycaster-intersected-cleared', function() {
+    this.element.addEventListener('raycaster-intersected-cleared', () => {
       if (!this.leaveOff) {
         // Mute
         vocals.mute(false);
         
         // Back to the color of the material
-        obj.material = new THREE.MeshPhongMaterial({
-          color: '#004eff',
-          flatShading: THREE.FlatShading
-        })
+        obj.material = mat;
         
         // Turn on Light
         light.setAttribute('intensity', '0.4');
@@ -273,11 +279,12 @@ AFRAME.registerComponent('volume-drums', {
   init: function () {
     this.element = this.el;
     var obj = this.element.getObject3D('mesh');
+    var mat = obj.material;
     var light = obj.el.children[0];
     this.leaveOff = false;
     this.platformDetected = false;
     
-    this.element.addEventListener('raycaster-intersected', function() {
+    this.element.addEventListener('raycaster-intersected', () => {
       this.leaveOff = false;
       console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
       // Mute
@@ -293,16 +300,13 @@ AFRAME.registerComponent('volume-drums', {
       light.setAttribute('intensity', '0.1');
     });
     
-    this.element.addEventListener('raycaster-intersected-cleared', function() {
+    this.element.addEventListener('raycaster-intersected-cleared', () => {
       if (!this.leaveOff) {
         // Mute
         drums.mute(false);
         
         // Back to the color of the material
-        obj.material = new THREE.MeshPhongMaterial({
-          color: '#ffea00',
-          flatShading: THREE.FlatShading
-        })
+        obj.material = mat;
         
         // Turn on Light
         light.setAttribute('intensity', '0.4');
@@ -336,10 +340,11 @@ AFRAME.registerComponent('volume-backing-vocals', {
     this.element = this.el;
     var obj = this.element.getObject3D('mesh');
     var light = obj.el.children[0];
+    var mat = obj.material;
     this.leaveOff = false;
     this.platformDetected = false;
     
-    this.element.addEventListener('raycaster-intersected', function() {
+    this.element.addEventListener('raycaster-intersected', () => {
       this.leaveOff = false;
       console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
       // Mute
@@ -355,16 +360,134 @@ AFRAME.registerComponent('volume-backing-vocals', {
       light.setAttribute('intensity', '0.1');
     });
     
-    this.element.addEventListener('raycaster-intersected-cleared', function() {
+    this.element.addEventListener('raycaster-intersected-cleared', () => {
       if (!this.leaveOff) {
         // Mute
         backingVocals.mute(false);
         
         // Back to the color of the material
-        obj.material = new THREE.MeshPhongMaterial({
-          color: '#72ff00',
-          flatShading: THREE.FlatShading
-        })
+        obj.material = mat;
+        
+        // Turn on Light
+        light.setAttribute('intensity', '0.4');
+      }
+    });
+  },
+  tick: function() {
+    if (!this.platformDetected) {
+      console.log('Platform for Click: ', platform)
+      if (platform === 'Desktop') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('mousedown', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      } else if (platform === 'Headset') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('click', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      }
+    }
+  }
+});
+
+AFRAME.registerComponent('volume-bass', {
+  init: function () {
+    this.element = this.el;
+    var obj = this.element.getObject3D('mesh');
+    var mat = obj.material;
+    var light = obj.el.children[0];
+    this.leaveOff = false;
+    this.platformDetected = false;
+    
+    this.element.addEventListener('raycaster-intersected', () => {
+      this.leaveOff = false;
+      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
+      // Mute
+      bass.mute(true);
+      
+      // Modify the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        emissive: '#ff0000',
+        emissiveIntensity: 0.8,
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn off Light
+      light.setAttribute('intensity', '0.1');
+    });
+    
+    this.element.addEventListener('raycaster-intersected-cleared', () => {
+      if (!this.leaveOff) {
+        // Mute
+        bass.mute(false);
+        
+        // Back to the color of the material
+        obj.material = mat;
+        
+        // Turn on Light
+        light.setAttribute('intensity', '0.4');
+      }
+    });
+  },
+  tick: function() {
+    if (!this.platformDetected) {
+      console.log('Platform for Click: ', platform)
+      if (platform === 'Desktop') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('mousedown', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      } else if (platform === 'Headset') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('click', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      }
+    }
+  }
+});
+
+AFRAME.registerComponent('volume-guitars', {
+  init: function () {
+    this.element = this.el;
+    var obj = this.element.getObject3D('mesh');
+    var light = obj.el.children[0];
+    var mat = obj.material;
+    this.leaveOff = false;
+    this.platformDetected = false;
+    
+    this.element.addEventListener('raycaster-intersected', () => {
+      this.leaveOff = false;
+      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
+      // Mute
+      guitars.mute(true);
+      
+      // Modify the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        emissive: '#72ff00',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn off Light
+      light.setAttribute('intensity', '0.1');
+    });
+    
+    this.element.addEventListener('raycaster-intersected-cleared', () => {
+      if (!this.leaveOff) {
+        // Mute
+        guitars.mute(false);
+        
+        // Back to the color of the material
+        obj.material = mat;
         
         // Turn on Light
         light.setAttribute('intensity', '0.4');
