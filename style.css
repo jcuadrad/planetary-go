@@ -84,3 +84,9 @@ video#fullscreen-bg__video {
 	width: 100%;
 	background: white;
 }
+
+@media (max-width: 416px) {
+  #white-background {
+    display: none;
+  }
+}
