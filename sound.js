@@ -76,11 +76,31 @@ var assetsReady = () => {
 
 var soundReady = () => {
   if (loadedSoundFiles === 6) {
+    var mobileWaitScreen = document.getElementById('mobile-web');
+    var buttonMobile = document.getElementById('mobile-button');
+
     var waitScreen = document.getElementById('wait');
     var loading = document.getElementById('loading');
+
+    buttonMobile.addEventListener('click', function() {
+      console.log('Removing...');
+      var startScreen = document.getElementById('start-screen');
+      var video = document.getElementById("title");
+      var html = `
+        <a-plane color="#ffffff" scale="0.071 0.071 0.705" material="shader:flat" position="0 1.05 -2.5" geometry="height:9;width:16" class="UIbutton" id="listen" listen>
+                   <a-text value="Let's Go!" color="#C6252A" height="50"  width="80" position="-7 0 0"></a-text>
+        </a-plane>
+      `;
+      startScreen.insertAdjacentHTML('beforeend', html);
+      mobileWaitScreen.remove();
+      video.play();
+    });
+
     console.log('Sound Is Ready', loadedSoundFiles);
     clearInterval(checkSound);
+    clearInterval(dots);
     loading.innerHTML = 'CLICK ANYWHERE ON THE SCREEN TO CONTINUE.';
+    buttonMobile.innerHTML = 'ENTER';
     // var waitScreenReady = `
     //   <h1 class="sliding-middle-out clickable" class="ready">LETS GO!<h1>
     // `
