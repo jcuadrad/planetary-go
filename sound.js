@@ -2,6 +2,13 @@
 
 /* SOUND LOADING HELPERS */
 
+var vocalsLeaveOff = false;
+var drumsLeaveOff = false;
+var backingTrackLeaveOff = false;
+var backingVocalsLeaveOff = false;
+var bassLeaveOff = false;
+var guitarsLeaveOff = false;
+
 // Counter
 var loadedSoundFiles = 0;
 
@@ -185,76 +192,14 @@ AFRAME.registerComponent('volume-backing-track', {
     this.platformDetected = false;
     
     this.element.addEventListener('raycaster-intersected', () => {
-      this.leaveOff = false;
-      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
+      backingTrackLeaveOff = false;
+      console.log('Hovered and I am ', backingTrackLeaveOff ? 'off': 'on')
       // Mute
       backingTrack.mute(true);
       
       // Modify the color of the material
-      obj.material = mat;
-      
-      // Turn off Light
-      light.setAttribute('intensity', '0.1');
-    });
-    
-    this.element.addEventListener('raycaster-intersected-cleared', () => {
-      if (!this.leaveOff) {
-        // Mute
-        backingTrack.mute(false);
-        
-        // Back to the color of the material
-        obj.material = new THREE.MeshPhongMaterial({
-          color: '#ff0000',
-          flatShading: THREE.FlatShading
-        })
-        
-        // Turn on Light
-        light.setAttribute('intensity', '0.4');
-      }
-    });
-  },
-  tick: function() {
-    if (!this.platformDetected) {
-      console.log('Platform for Click: ', platform)
-      if (platform === 'Desktop') {
-        this.platformDetected = true;
-        console.log('Adding Click Event to Orb')
-        this.element.addEventListener('mousedown', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
-        });
-      } else if (platform === 'Headset') {
-        this.platformDetected = true;
-        console.log('Adding Click Event to Orb')
-        this.element.addEventListener('click', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
-        });
-      } else if (platform === 'Mobile') {
-        this.platformDetected = true;
-      }
-    }
-  }
-});
-
-AFRAME.registerComponent('volume-vocals', {
-  init: function () {
-    this.element = this.el;
-    var obj = this.element.getObject3D('mesh');
-    var mat = obj.material;
-    var light = obj.el.children[0];
-    this.leaveOff = false;
-    this.platformDetected = false;
-    
-    this.element.addEventListener('raycaster-intersected', () => {
-      this.leaveOff = false;
-      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
-      // Mute
-      vocals.mute(true);
-      
-      // Modify the color of the material
       obj.material = new THREE.MeshPhongMaterial({
-        emissive: '#004eff',
+        emissive: '#ff0000',
         flatShading: THREE.FlatShading
       })
       
@@ -263,9 +208,9 @@ AFRAME.registerComponent('volume-vocals', {
     });
     
     this.element.addEventListener('raycaster-intersected-cleared', () => {
-      if (!this.leaveOff) {
+      if (!backingTrackLeaveOff) {
         // Mute
-        vocals.mute(false);
+        backingTrack.mute(false);
         
         // Back to the color of the material
         obj.material = mat;
@@ -282,18 +227,95 @@ AFRAME.registerComponent('volume-vocals', {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('mousedown', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          backingTrackLeaveOff = !backingTrackLeaveOff;
+          console.log('Clicked and I am ', backingTrackLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Headset') {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('click', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          backingTrackLeaveOff = !backingTrackLeaveOff;
+          console.log('Clicked and I am ', backingTrackLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Mobile') {
         this.platformDetected = true;
+        this.element.addEventListener('click', function() {
+          backingTrackLeaveOff = !backingTrackLeaveOff;
+          console.log('Clicked and I am ', backingTrackLeaveOff ? 'off': 'on')
+        });
+      }
+    }
+  }
+});
+
+AFRAME.registerComponent('volume-vocals', {
+  init: function () {
+    this.element = this.el;
+    var obj = this.element.getObject3D('mesh');
+    var mat = obj.material;
+    var light = obj.el.children[0];
+    this.leaveOff = false;
+    this.platformDetected = false;
+    
+    this.element.addEventListener('raycaster-intersected', () => {
+      vocalsLeaveOff = false;
+      console.log('Leave Off?', vocalsLeaveOff);
+      // console.log('Hovered and I am ', this.leaveOff ? 'on': 'off')
+      // Mute
+      vocals.mute(true);
+      
+      // Modify the color of the material
+      obj.material = new THREE.MeshPhongMaterial({
+        emissive: '#004eff',
+        flatShading: THREE.FlatShading
+      })
+      
+      // Turn off Light
+      light.setAttribute('intensity', '0.1');
+    });
+    
+    this.element.addEventListener('raycaster-intersected-cleared', () => {
+      console.log('Leave Off?', vocalsLeaveOff);
+      if (!vocalsLeaveOff) {
+        console.log('Turning On Again.');
+        // Mute
+        vocals.mute(false);
+        
+        // Back to the color of the material
+        obj.material = mat;
+        
+        // Turn on Light
+        light.setAttribute('intensity', '0.4');
+      } else {
+        console.log('Leaving this on.');
+      }
+    });
+  },
+  tick: function() {
+    if (!this.platformDetected) {
+      console.log('Platform for Click: ', platform)
+      if (platform === 'Desktop') {
+        this.platformDetected = true;
+        console.log('Adding Click Event to Orb')
+        this.element.addEventListener('mousedown', function() {
+          this.leaveOff = !this.leaveOff;
+          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+        });
+      } else if (platform === 'Headset') {
+        this.platformDetected = true;
+        console.log('Adding Trigger Down Event to Orb')
+        this.element.addEventListener('click', function() {
+          vocalsLeaveOff = !vocalsLeaveOff;
+          console.log('Leave Off?', vocalsLeaveOff);
+          console.log('Clicked to keep quiet.')
+        });
+      } else if (platform === 'Mobile') {
+        this.platformDetected = true;
+        this.element.addEventListener('click', function() {
+          vocalsLeaveOff = !vocalsLeaveOff;
+          console.log('Leave Off?', vocalsLeaveOff);
+          console.log('Clicked to keep quiet.')
+        });
       }
     }
   }
@@ -309,8 +331,8 @@ AFRAME.registerComponent('volume-drums', {
     this.platformDetected = false;
     
     this.element.addEventListener('raycaster-intersected', () => {
-      this.leaveOff = false;
-      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
+      drumsLeaveOff = false;
+      console.log('Hovered and I am ', drumsLeaveOff ? 'off': 'on')
       // Mute
       drums.mute(true);
       
@@ -325,7 +347,7 @@ AFRAME.registerComponent('volume-drums', {
     });
     
     this.element.addEventListener('raycaster-intersected-cleared', () => {
-      if (!this.leaveOff) {
+      if (!drumsLeaveOff) {
         // Mute
         drums.mute(false);
         
@@ -344,18 +366,22 @@ AFRAME.registerComponent('volume-drums', {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('mousedown', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          drumsLeaveOff = !drumsLeaveOff;
+          console.log('Clicked and I am ', drumsLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Headset') {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('click', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          drumsLeaveOff = !drumsLeaveOff;
+          console.log('Clicked and I am ', drumsLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Mobile') {
         this.platformDetected = true;
+        this.element.addEventListener('click', function() {
+          drumsLeaveOff = !drumsLeaveOff;
+          console.log('Clicked and I am ', drumsLeaveOff ? 'off': 'on')
+        });
       }
     }
   }
@@ -371,8 +397,8 @@ AFRAME.registerComponent('volume-backing-vocals', {
     this.platformDetected = false;
     
     this.element.addEventListener('raycaster-intersected', () => {
-      this.leaveOff = false;
-      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
+      backingVocalsLeaveOff = false;
+      console.log('Hovered and I am ', backingVocalsLeaveOff ? 'off': 'on')
       // Mute
       backingVocals.mute(true);
       
@@ -387,7 +413,7 @@ AFRAME.registerComponent('volume-backing-vocals', {
     });
     
     this.element.addEventListener('raycaster-intersected-cleared', () => {
-      if (!this.leaveOff) {
+      if (!backingVocalsLeaveOff) {
         // Mute
         backingVocals.mute(false);
         
@@ -406,18 +432,22 @@ AFRAME.registerComponent('volume-backing-vocals', {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('mousedown', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          backingVocalsLeaveOff = !backingVocalsLeaveOff;
+          console.log('Clicked and I am ', backingVocalsLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Headset') {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('click', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          backingVocalsLeaveOff = !backingVocalsLeaveOff;
+          console.log('Clicked and I am ', backingVocalsLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Mobile') {
         this.platformDetected = true;
+        this.element.addEventListener('click', function() {
+          backingVocalsLeaveOff = !backingVocalsLeaveOff;
+          console.log('Clicked and I am ', backingVocalsLeaveOff ? 'off': 'on')
+        });
       }
     }
   }
@@ -433,8 +463,8 @@ AFRAME.registerComponent('volume-bass', {
     this.platformDetected = false;
     
     this.element.addEventListener('raycaster-intersected', () => {
-      this.leaveOff = false;
-      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
+      bassLeaveOff = false;
+      console.log('Hovered and I am ', bassLeaveOff ? 'off': 'on')
       // Mute
       bass.mute(true);
       
@@ -450,7 +480,7 @@ AFRAME.registerComponent('volume-bass', {
     });
     
     this.element.addEventListener('raycaster-intersected-cleared', () => {
-      if (!this.leaveOff) {
+      if (!bassLeaveOff) {
         // Mute
         bass.mute(false);
         
@@ -469,18 +499,22 @@ AFRAME.registerComponent('volume-bass', {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('mousedown', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          bassLeaveOff = !bassLeaveOff;
+          console.log('Clicked and I am ', bassLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Headset') {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('click', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          bassLeaveOff = !bassLeaveOff;
+          console.log('Clicked and I am ', bassLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Mobile') {
         this.platformDetected = true;
+        this.element.addEventListener('click', function() {
+          bassLeaveOff = !bassLeaveOff;
+          console.log('Clicked and I am ', bassLeaveOff ? 'off': 'on')
+        });
       }
     }
   }
@@ -496,8 +530,8 @@ AFRAME.registerComponent('volume-guitars', {
     this.platformDetected = false;
     
     this.element.addEventListener('raycaster-intersected', () => {
-      this.leaveOff = false;
-      console.log('Hovered and I am ', this.leaveOff ? 'off': 'on')
+      guitarsLeaveOff = false;
+      console.log('Hovered and I am ', guitarsLeaveOff ? 'off': 'on')
       // Mute
       guitars.mute(true);
       
@@ -512,7 +546,7 @@ AFRAME.registerComponent('volume-guitars', {
     });
     
     this.element.addEventListener('raycaster-intersected-cleared', () => {
-      if (!this.leaveOff) {
+      if (!guitarsLeaveOff) {
         // Mute
         guitars.mute(false);
         
@@ -531,18 +565,22 @@ AFRAME.registerComponent('volume-guitars', {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('mousedown', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          guitarsLeaveOff = !guitarsLeaveOff;
+          console.log('Clicked and I am ', guitarsLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Headset') {
         this.platformDetected = true;
         console.log('Adding Click Event to Orb')
         this.element.addEventListener('click', function() {
-          this.leaveOff = !this.leaveOff;
-          console.log('Clicked and I am ', this.leaveOff ? 'off': 'on')
+          guitarsLeaveOff = !guitarsLeaveOff;
+          console.log('Clicked and I am ', guitarsLeaveOff ? 'off': 'on')
         });
       } else if (platform === 'Mobile') {
         this.platformDetected = true;
+        this.element.addEventListener('click', function() {
+          guitarsLeaveOff = !guitarsLeaveOff;
+          console.log('Clicked and I am ', guitarsLeaveOff ? 'off': 'on')
+        });
       }
     }
   }
