@@ -42,7 +42,7 @@ AFRAME.registerComponent('check-platform', {
         } else if (AFRAME.utils.device.isMobile()) {
             platform = 'Mobile';
             console.log('Adding Cursor for ', platform);
-            camera.insertAdjacentHTML('beforeend', cursorMobile);
+            camera.insertAdjacentHTML('beforeend', cursor);
         }
     }
 });
